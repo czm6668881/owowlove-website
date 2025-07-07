@@ -1,33 +1,15 @@
 {
   "version": 2,
-  "name": "owowlove",
-  "builds": [
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/next"
+      "source": "/uploads/(.*)",
+      "destination": "/public/uploads/$1"
+    },
+    {
+      "source": "/product-images/(.*)",
+      "destination": "/public/product-images/$1"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/uploads/(.*)",
-      "dest": "/public/uploads/$1"
-    },
-    {
-      "src": "/product-images/(.*)",
-      "dest": "/public/product-images/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
   "functions": {
     "app/api/**/*.ts": {
       "maxDuration": 30
