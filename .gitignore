@@ -25,3 +25,21 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# PM2 logs and config
+logs/
+ecosystem.config.js
+
+# Large files
+*.exe
+
+# Cache files
+.cache/
+
+# OS files
+.DS_Store
+*.pem
+
+# IDE files
+.vscode/
+.idea/
