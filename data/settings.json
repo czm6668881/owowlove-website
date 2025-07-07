@@ -1,0 +1,40 @@
+{
+  "store": {
+    "storeName": "OWOWLOVE",
+    "storeDescription": "Premium sexy cosplay costumes for women and girls featuring animal and bunny outfits",
+    "storeEmail": "owowlove@163.com",
+    "storePhone": "",
+    "storeAddress": "",
+    "currency": "USD",
+    "timezone": "America/New_York",
+    "language": "en",
+    "logo": "/placeholder-logo.png",
+    "favicon": "/favicon.ico"
+  },
+  "seo": {
+    "metaTitle": "Sexy Cosplay Costumes for Women & Girls | OWOWLOVE.COM - Animal & Bunny Outfits",
+    "metaDescription": "Shop premium sexy cosplay costumes for women and girls at OWOWLOVE.COM. Discover our exclusive collection of animal costumes, bunny outfits, and fantasy cosplay designs with worldwide shipping.",
+    "metaKeywords": "sexy cosplay, women cosplay, girls costume, animal costume, bunny costume, cosplay outfits, fantasy costumes, women costume, girls outfits, animal outfits",
+    "googleAnalyticsId": "",
+    "facebookPixelId": "",
+    "enableSitemap": true,
+    "enableRobots": true
+  },
+  "email": {
+    "smtpHost": "",
+    "smtpPort": "587",
+    "smtpUsername": "",
+    "smtpPassword": "",
+    "fromEmail": "noreply@owowlove.com",
+    "fromName": "OWOWLOVE",
+    "enableEmailNotifications": true
+  },
+  "security": {
+    "enableTwoFactor": false,
+    "sessionTimeout": 30,
+    "maxLoginAttempts": 5,
+    "enableCaptcha": true,
+    "allowGuestCheckout": true
+  },
+  "updatedAt": "2025-07-01T13:42:26.207Z"
+}

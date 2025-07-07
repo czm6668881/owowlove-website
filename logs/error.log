@@ -1,0 +1,798 @@
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:08:45: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next:2
+2025-07-03T11:08:45: basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+2025-07-03T11:08:45:           ^^^^^^^
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: SyntaxError: missing ) after argument list
+2025-07-03T11:08:45:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:08:45:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:08:45:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:08:45:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:08:45:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:08:45:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:08:45:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:08:45:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:08:45:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:08:45: 
+2025-07-03T11:08:45: Node.js v22.17.0
+2025-07-03T11:20:41: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:41: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:41: ^
+2025-07-03T11:20:41: 
+2025-07-03T11:20:41: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:41:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:41:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:41:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:41:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:41:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:41:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:41:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:41:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:41:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:41: 
+2025-07-03T11:20:41: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:20:42: D:\PROGRAM FILES\NODEJS\NPM.CMD:1
+2025-07-03T11:20:42: :: Created by npm, please don't edit manually.
+2025-07-03T11:20:42: ^
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: SyntaxError: Unexpected token ':'
+2025-07-03T11:20:42:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:20:42:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:20:42:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:20:42:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:20:42:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:20:42:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:20:42:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:20:42:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:20:42:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:20:42: 
+2025-07-03T11:20:42: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:48: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:48: @ECHO off
+2025-07-03T11:28:48: ^
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:48:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:48:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:48:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:48:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:48:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:48:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:48: 
+2025-07-03T11:28:48: Node.js v22.17.0
+2025-07-03T11:28:49: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:28:49: @ECHO off
+2025-07-03T11:28:49: ^
+2025-07-03T11:28:49: 
+2025-07-03T11:28:49: SyntaxError: Invalid or unexpected token
+2025-07-03T11:28:49:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:28:49:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:28:49:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:28:49:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:28:49:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:28:49:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:28:49:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:28:49:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:28:49:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:28:49: 
+2025-07-03T11:28:49: Node.js v22.17.0
+2025-07-03T11:33:43: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:43: @ECHO off
+2025-07-03T11:33:43: ^
+2025-07-03T11:33:43: 
+2025-07-03T11:33:43: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:43:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:43:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:43:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:43:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:43:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:43:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:43:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:43:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:43:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:43: 
+2025-07-03T11:33:43: Node.js v22.17.0
+2025-07-03T11:33:43: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:43: @ECHO off
+2025-07-03T11:33:43: ^
+2025-07-03T11:33:43: 
+2025-07-03T11:33:43: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:43:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:43:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:43:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:43:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:43:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:43:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:43:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:43:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:43:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:43: 
+2025-07-03T11:33:43: Node.js v22.17.0
+2025-07-03T11:33:43: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:43: @ECHO off
+2025-07-03T11:33:43: ^
+2025-07-03T11:33:43: 
+2025-07-03T11:33:43: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:43:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:43:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:43:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:43:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:43:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:43:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:43:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:43:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:43:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:43: 
+2025-07-03T11:33:43: Node.js v22.17.0
+2025-07-03T11:33:44: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:44: @ECHO off
+2025-07-03T11:33:44: ^
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:44:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:44:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:44:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:44:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: Node.js v22.17.0
+2025-07-03T11:33:44: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:44: @ECHO off
+2025-07-03T11:33:44: ^
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:44:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:44:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:44:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:44:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: Node.js v22.17.0
+2025-07-03T11:33:44: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:44: @ECHO off
+2025-07-03T11:33:44: ^
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:44:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:44:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:44:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:44:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: Node.js v22.17.0
+2025-07-03T11:33:44: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:44: @ECHO off
+2025-07-03T11:33:44: ^
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:44:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:44:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:44:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:44:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: Node.js v22.17.0
+2025-07-03T11:33:44: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:44: @ECHO off
+2025-07-03T11:33:44: ^
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:44:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:44:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:44:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:44:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: Node.js v22.17.0
+2025-07-03T11:33:44: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:44: @ECHO off
+2025-07-03T11:33:44: ^
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:44:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:44:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:44:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:44:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: Node.js v22.17.0
+2025-07-03T11:33:44: C:\Users\CZM\Desktop\OWOWLOVE\node_modules\.bin\next.cmd:1
+2025-07-03T11:33:44: @ECHO off
+2025-07-03T11:33:44: ^
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: SyntaxError: Invalid or unexpected token
+2025-07-03T11:33:44:     at wrapSafe (node:internal/modules/cjs/loader:1662:18)
+2025-07-03T11:33:44:     at Module._compile (node:internal/modules/cjs/loader:1704:20)
+2025-07-03T11:33:44:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:33:44:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:33:44:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:33:44:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+2025-07-03T11:33:44:     at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+2025-07-03T11:33:44:     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+2025-07-03T11:33:44:     at node:internal/main/run_main_module:36:49
+2025-07-03T11:33:44: 
+2025-07-03T11:33:44: Node.js v22.17.0
+2025-07-03T11:35:46: Error: spawn EINVAL
+2025-07-03T11:35:46:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:46:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:46:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:46:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:46:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:46:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:46:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:46:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:46:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:46:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:46:   errno: -4071,
+2025-07-03T11:35:46:   code: 'EINVAL',
+2025-07-03T11:35:46:   syscall: 'spawn'
+2025-07-03T11:35:46: }
+2025-07-03T11:35:46: Error: spawn EINVAL
+2025-07-03T11:35:46:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:46:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:46:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:46:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:46:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:46:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:46:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:46:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:46:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:46:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:46:   errno: -4071,
+2025-07-03T11:35:46:   code: 'EINVAL',
+2025-07-03T11:35:46:   syscall: 'spawn'
+2025-07-03T11:35:46: }
+2025-07-03T11:35:47: Error: spawn EINVAL
+2025-07-03T11:35:47:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:47:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:47:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:47:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:47:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:47:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:47:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:47:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:47:   errno: -4071,
+2025-07-03T11:35:47:   code: 'EINVAL',
+2025-07-03T11:35:47:   syscall: 'spawn'
+2025-07-03T11:35:47: }
+2025-07-03T11:35:47: Error: spawn EINVAL
+2025-07-03T11:35:47:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:47:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:47:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:47:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:47:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:47:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:47:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:47:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:47:   errno: -4071,
+2025-07-03T11:35:47:   code: 'EINVAL',
+2025-07-03T11:35:47:   syscall: 'spawn'
+2025-07-03T11:35:47: }
+2025-07-03T11:35:47: Error: spawn EINVAL
+2025-07-03T11:35:47:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:47:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:47:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:47:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:47:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:47:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:47:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:47:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:47:   errno: -4071,
+2025-07-03T11:35:47:   code: 'EINVAL',
+2025-07-03T11:35:47:   syscall: 'spawn'
+2025-07-03T11:35:47: }
+2025-07-03T11:35:47: Error: spawn EINVAL
+2025-07-03T11:35:47:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:47:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:47:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:47:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:47:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:47:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:47:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:47:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:47:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:47:   errno: -4071,
+2025-07-03T11:35:47:   code: 'EINVAL',
+2025-07-03T11:35:47:   syscall: 'spawn'
+2025-07-03T11:35:47: }
+2025-07-03T11:35:48: Error: spawn EINVAL
+2025-07-03T11:35:48:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:48:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:48:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:48:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:48:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:48:   errno: -4071,
+2025-07-03T11:35:48:   code: 'EINVAL',
+2025-07-03T11:35:48:   syscall: 'spawn'
+2025-07-03T11:35:48: }
+2025-07-03T11:35:48: Error: spawn EINVAL
+2025-07-03T11:35:48:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:48:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:48:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:48:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:48:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:48:   errno: -4071,
+2025-07-03T11:35:48:   code: 'EINVAL',
+2025-07-03T11:35:48:   syscall: 'spawn'
+2025-07-03T11:35:48: }
+2025-07-03T11:35:48: Error: spawn EINVAL
+2025-07-03T11:35:48:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:48:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:48:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:48:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:48:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:48:   errno: -4071,
+2025-07-03T11:35:48:   code: 'EINVAL',
+2025-07-03T11:35:48:   syscall: 'spawn'
+2025-07-03T11:35:48: }
+2025-07-03T11:35:48: Error: spawn EINVAL
+2025-07-03T11:35:48:     at ChildProcess.spawn (node:internal/child_process:420:11)
+2025-07-03T11:35:48:     at spawn (node:child_process:754:9)
+2025-07-03T11:35:48:     at Object.<anonymous> (C:\Users\CZM\Desktop\OWOWLOVE\start-server.js:17:16)
+2025-07-03T11:35:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:48:     at Object..js (node:internal/modules/cjs/loader:1895:10)
+2025-07-03T11:35:48:     at Module.load (node:internal/modules/cjs/loader:1465:32)
+2025-07-03T11:35:48:     at Function._load (node:internal/modules/cjs/loader:1282:12)
+2025-07-03T11:35:48:     at Object.<anonymous> (C:\Users\CZM\AppData\Roaming\npm\node_modules\pm2\lib\ProcessContainerFork.js:33:23)
+2025-07-03T11:35:48:     at Module._compile (node:internal/modules/cjs/loader:1730:14)
+2025-07-03T11:35:48:     at Object..js (node:internal/modules/cjs/loader:1895:10) {
+2025-07-03T11:35:48:   errno: -4071,
+2025-07-03T11:35:48:   code: 'EINVAL',
+2025-07-03T11:35:48:   syscall: 'spawn'
+2025-07-03T11:35:48: }
+2025-07-03T12:38:35: ^C
+2025-07-03T12:38:35: ^C
+2025-07-03T12:38:35: ^C
+2025-07-03T12:38:40: ^C
+2025-07-03T12:38:40: ^C
+2025-07-03T12:38:40: ^C
+2025-07-04T20:04:54:  ⚠ Unsupported metadata viewport is configured in metadata export in /favicon.ico. Please move it to viewport export instead.
+2025-07-04T20:04:54: Read more: https://nextjs.org/docs/app/api-reference/functions/generate-viewport

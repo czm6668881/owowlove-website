@@ -1,0 +1,27 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="400" fill="#FEF7FF"/>
+  <rect x="50" y="50" width="200" height="300" rx="12" fill="#FFFFFF" stroke="#F3E8FF" stroke-width="2"/>
+  
+  <!-- Mesh pattern -->
+  <defs>
+    <pattern id="mesh" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="1" fill="#A855F7" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- Babydoll outline -->
+  <path d="M110 90 Q150 80 190 90 L195 130 Q190 200 185 270 Q150 290 115 270 Q110 200 105 130 Z" 
+        fill="url(#mesh)" stroke="#A855F7" stroke-width="2"/>
+  
+  <!-- Lace trim -->
+  <path d="M110 90 Q150 85 190 90" stroke="#A855F7" stroke-width="3" fill="none"/>
+  <path d="M115 270 Q150 275 185 270" stroke="#A855F7" stroke-width="3" fill="none"/>
+  
+  <!-- Bow detail -->
+  <circle cx="150" cy="100" r="4" fill="#A855F7"/>
+  <path d="M145 100 Q150 95 155 100 Q150 105 145 100" fill="#A855F7"/>
+  
+  <text x="150" y="320" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="16" font-weight="600">Mesh Babydoll</text>
+  <text x="150" y="340" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="12">Sheer Mesh</text>
+  <text x="150" y="360" text-anchor="middle" fill="#DC2626" font-family="Arial, sans-serif" font-size="14" font-weight="600">$55.99</text>
+</svg>
