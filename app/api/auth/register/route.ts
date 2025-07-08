@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { UserService } from '@/lib/data/users'
+import { UserService } from '@/lib/services/users'
 import { RegisterRequest } from '@/lib/types/user'
 import { sign } from 'jsonwebtoken'
 
@@ -42,43 +42,43 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    try {
-      // 创建用户
-      const newUser = await UserService.createUser(body)
-      
-      // 生成JWT token
-      const token = sign(
-        { 
-          userId: newUser.id,
-          email: newUser.email,
-          iat: Math.floor(Date.now() / 1000),
-          exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 days
-        },
-        JWT_SECRET
-      )
+    // 创建用户
+    const { user: newUser, error } = await UserService.registerUser(body)
 
-      // 返回成功响应（不包含密码）
-      const publicUser = UserService.toPublicUser(newUser)
-
-      console.log(`New user registered: ${newUser.email} at ${new Date().toISOString()}`)
-
-      return NextResponse.json({
-        success: true,
-        token,
-        user: publicUser,
-        message: 'Registration successful'
-      })
-
-    } catch (error: any) {
-      if (error.message === 'Email already exists') {
+    if (error || !newUser) {
+      if (error === 'User already exists') {
         return NextResponse.json(
           { success: false, error: 'An account with this email already exists' },
           { status: 409 }
         )
       }
-      
-      throw error
+
+      return NextResponse.json(
+        { success: false, error: error || 'Registration failed' },
+        { status: 400 }
+      )
     }
+
+    // 生成JWT token
+    const token = sign(
+      {
+        userId: newUser.id,
+        email: newUser.email,
+        role: newUser.role,
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 days
+      },
+      JWT_SECRET
+    )
+
+    console.log(`New user registered: ${newUser.email} at ${new Date().toISOString()}`)
+
+    return NextResponse.json({
+      success: true,
+      token,
+      user: newUser,
+      message: 'Registration successful'
+    })
 
   } catch (error) {
     console.error('Registration error:', error)

@@ -43,3 +43,4 @@ ecosystem.config.js
 # IDE files
 .vscode/
 .idea/
+.vercel
