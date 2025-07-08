@@ -1,1 +1,83 @@
-[]
+[
+  {
+    "id": "prod-1",
+    "name": "Sexy Bunny Costume",
+    "description": "Premium bunny cosplay costume with ears and tail",
+    "price": 49.99,
+    "images": [
+      "/placeholder-product.jpg"
+    ],
+    "categoryId": "cat-1",
+    "variants": [
+      {
+        "id": "var-1",
+        "size": "S",
+        "color": "White",
+        "price": 49.99,
+        "stock": 10
+      },
+      {
+        "id": "var-2",
+        "size": "M",
+        "color": "White",
+        "price": 49.99,
+        "stock": 15
+      },
+      {
+        "id": "var-3",
+        "size": "L",
+        "color": "Pink",
+        "price": 54.99,
+        "stock": 8
+      }
+    ],
+    "isListed": true
+  },
+  {
+    "id": "prod-2",
+    "name": "Cat Girl Outfit",
+    "description": "Adorable cat-themed cosplay set",
+    "price": 39.99,
+    "images": [
+      "/placeholder-product.jpg"
+    ],
+    "categoryId": "cat-2",
+    "variants": [
+      {
+        "id": "var-4",
+        "size": "One Size",
+        "color": "Black",
+        "price": 39.99,
+        "stock": 20
+      }
+    ],
+    "isListed": true
+  },
+  {
+    "id": "prod-3",
+    "name": "Lace Lingerie Set",
+    "description": "Elegant lace lingerie with premium materials",
+    "price": 69.99,
+    "images": [
+      "/placeholder-product.jpg"
+    ],
+    "categoryId": "cat-3",
+    "variants": [
+      {
+        "id": "var-5",
+        "size": "S",
+        "color": "Red",
+        "price": 69.99,
+        "stock": 5
+      },
+      {
+        "id": "var-6",
+        "size": "M",
+        "color": "Black",
+        "price": 69.99,
+        "stock": 12
+      }
+    ],
+    "isListed": true
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "cat-1",
+    "name": "Bunny Cosplay",
+    "description": "Cute bunny-themed cosplay costumes",
+    "image": "/placeholder-category.jpg"
+  },
+  {
+    "id": "cat-2",
+    "name": "Animal Cosplay",
+    "description": "Various animal-themed costumes",
+    "image": "/placeholder-category.jpg"
+  },
+  {
+    "id": "cat-3",
+    "name": "Sexy Lingerie",
+    "description": "Premium lingerie collection",
+    "image": "/placeholder-category.jpg"
+  }
+]
