@@ -25,29 +25,27 @@ import { CategoryNavigation } from '@/components/category-navigation'
 
 interface FrontendProduct {
   id: string
-  nameKey: string
-  nameEn: string
-  nameZh: string
+  name: string
+  description: string
+  price: number
+  images: string[]
+  category_id: string
   variants: Array<{
     id: string
     size: string
     color: string
     price: number
-    originalPrice?: number
     stock: number
   }>
-  images: Array<{
+  is_active: boolean
+  created_at: string
+  updated_at: string
+  category?: {
     id: string
-    url: string
-    alt: string
-    isPrimary: boolean
-  }>
-  rating: number
-  reviews: number
-  isNew?: boolean
-  isSale?: boolean
-  category: string
-  tags: string[]
+    name: string
+    description: string
+    image: string
+  }
 }
 
 // 产品数据现在从API获取
@@ -86,17 +84,18 @@ export default function LingerieStore() {
   }
 
   const filteredProducts = products.filter((product) => {
-    const productName = product.nameEn.toLowerCase()
-    const matchesSearch = productName.includes(searchQuery.toLowerCase())
+    const productName = (product.name || '').toLowerCase()
+    const productDescription = (product.description || '').toLowerCase()
+    const searchLower = searchQuery.toLowerCase()
+    const matchesSearch = productName.includes(searchLower) || productDescription.includes(searchLower)
     const matchesSize = filterSize === "all" || product.variants.some(v => v.size === filterSize)
-    const matchesColor = filterColor === "all" || product.variants.some(v => v.color.toLowerCase().includes(filterColor.toLowerCase()))
+    const matchesColor = filterColor === "all" || product.variants.some(v => (v.color || '').toLowerCase().includes(filterColor.toLowerCase()))
     return matchesSearch && matchesSize && matchesColor
   })
 
   // 获取产品的主图片
   const getProductImage = (product: FrontendProduct): string => {
-    const primaryImage = product.images.find(img => img.isPrimary)
-    return primaryImage?.url || product.images[0]?.url || '/placeholder.svg'
+    return product.images[0] || '/placeholder.svg'
   }
 
   // 获取产品价格范围
@@ -230,7 +229,7 @@ export default function LingerieStore() {
                     <div className="relative overflow-hidden">
                       <img
                         src={productImage}
-                        alt={product.nameEn}
+                        alt={product.name}
                         className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
                       />
 
@@ -241,7 +240,7 @@ export default function LingerieStore() {
                     </div>
 
                     <div className="p-3 md:p-4">
-                      <h3 className="font-medium text-gray-900 mb-2 text-sm md:text-base">{product.nameEn}</h3>
+                      <h3 className="font-medium text-gray-900 mb-2 text-sm md:text-base">{product.name}</h3>
 
                       <div className="flex items-center mb-2">
                         <div className="flex items-center">
@@ -249,12 +248,12 @@ export default function LingerieStore() {
                             <Star
                               key={i}
                               className={`h-3 w-3 ${
-                                i < Math.floor(product.rating) ? "text-yellow-400 fill-current" : "text-gray-300"
+                                i < Math.floor(4.5) ? "text-yellow-400 fill-current" : "text-gray-300"
                               }`}
                             />
                           ))}
                         </div>
-                        <span className="text-xs text-gray-500 ml-1">({product.reviews})</span>
+                        <span className="text-xs text-gray-500 ml-1">(12)</span>
                       </div>
 
                       <div className="flex items-center justify-between mb-3">
@@ -306,8 +305,8 @@ export default function LingerieStore() {
                               addToCart({
                                 productId: product.id,
                                 variantId: firstVariant.id,
-                                productName: product.nameEn,
-                                productImage: product.images[0]?.url || '/placeholder.jpg',
+                                productName: product.name,
+                                productImage: product.images[0] || '/placeholder.jpg',
                                 size: firstVariant.size,
                                 color: firstVariant.color,
                                 price: firstVariant.price,

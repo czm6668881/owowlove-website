@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Image Upload</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .upload-area { border: 2px dashed #ccc; padding: 20px; margin: 20px 0; text-align: center; }
+        .image-preview { margin: 20px 0; }
+        .image-preview img { max-width: 200px; border: 1px solid #ddd; margin: 10px; }
+        .log { background: #f5f5f5; padding: 10px; margin: 10px 0; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Image Upload Debug Tool</h1>
+        
+        <div class="upload-area">
+            <input type="file" id="imageInput" accept="image/*" />
+            <p>Select an image to test upload</p>
+        </div>
+        
+        <div id="log" class="log">Ready to test upload...</div>
+        
+        <div id="imagePreview" class="image-preview"></div>
+        
+        <h3>Test Existing Images:</h3>
+        <div id="existingImages"></div>
+    </div>
+
+    <script>
+        const log = document.getElementById('log');
+        const imagePreview = document.getElementById('imagePreview');
+        const existingImages = document.getElementById('existingImages');
+        
+        function addLog(message) {
+            log.innerHTML += new Date().toLocaleTimeString() + ': ' + message + '<br>';
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        // Test existing images
+        const testImages = [
+            '/uploads/product-1751797917528.jpg',
+            '/uploads/product-1751798944448.jpg',
+            '/uploads/product-1751799844317.jpg'
+        ];
+        
+        testImages.forEach(imagePath => {
+            const img = document.createElement('img');
+            img.src = imagePath;
+            img.style.maxWidth = '150px';
+            img.style.margin = '5px';
+            img.style.border = '1px solid #ddd';
+            
+            img.onload = () => {
+                addLog(`✅ Image loaded: ${imagePath}`);
+            };
+            
+            img.onerror = () => {
+                addLog(`❌ Image failed to load: ${imagePath}`);
+            };
+            
+            existingImages.appendChild(img);
+        });
+        
+        document.getElementById('imageInput').addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            addLog(`📁 Selected file: ${file.name} (${file.size} bytes, ${file.type})`);
+            
+            // Show local preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '200px';
+                img.style.border = '1px solid #ddd';
+                imagePreview.innerHTML = '<h4>Local Preview:</h4>';
+                imagePreview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+            
+            // Upload to server
+            try {
+                addLog('🚀 Starting upload...');
+                
+                const formData = new FormData();
+                formData.append('image', file);
+                
+                const response = await fetch('/api/admin/upload-image', {
+                    method: 'POST',
+                    body: formData,
+                });
+                
+                addLog(`📡 Response status: ${response.status}`);
+                
+                const result = await response.json();
+                addLog(`📋 Response data: ${JSON.stringify(result, null, 2)}`);
+                
+                if (result.success) {
+                    addLog(`✅ Upload successful! URL: ${result.url}`);
+                    
+                    // Test the uploaded image
+                    const uploadedImg = document.createElement('img');
+                    uploadedImg.src = result.url;
+                    uploadedImg.style.maxWidth = '200px';
+                    uploadedImg.style.border = '1px solid #ddd';
+                    uploadedImg.style.marginTop = '10px';
+                    
+                    uploadedImg.onload = () => {
+                        addLog(`✅ Uploaded image displays correctly: ${result.url}`);
+                    };
+                    
+                    uploadedImg.onerror = () => {
+                        addLog(`❌ Uploaded image failed to display: ${result.url}`);
+                    };
+                    
+                    imagePreview.appendChild(document.createElement('h4')).textContent = 'Uploaded Image:';
+                    imagePreview.appendChild(uploadedImg);
+                } else {
+                    addLog(`❌ Upload failed: ${result.error}`);
+                }
+            } catch (error) {
+                addLog(`❌ Upload error: ${error.message}`);
+            }
+        });
+        
+        addLog('🔧 Debug tool loaded. Testing existing images...');
+    </script>
+</body>
+</html>

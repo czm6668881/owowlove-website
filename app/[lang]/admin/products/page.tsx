@@ -58,8 +58,12 @@ export default function ProductsPage() {
       })
       const data = await response.json()
       if (data.success) {
-        setProducts(products.map(p => 
-          p.id === productId ? { ...p, isActive: !p.isActive } : p
+        setProducts(products.map(p =>
+          p.id === productId ? {
+            ...p,
+            isActive: !(p.isActive || p.is_active),
+            is_active: !(p.isActive || p.is_active)
+          } : p
         ))
       }
     } catch (error) {
@@ -83,10 +87,12 @@ export default function ProductsPage() {
     }
   }
 
-  const filteredProducts = products.filter(product =>
-    product.nameEn.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.category.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const filteredProducts = products.filter(product => {
+    const productName = (product.nameEn || product.name || '').toLowerCase()
+    const productCategory = (product.category || '').toLowerCase()
+    const searchLower = searchQuery.toLowerCase()
+    return productName.includes(searchLower) || productCategory.includes(searchLower)
+  })
 
   if (loading) {
     return (
@@ -150,10 +156,10 @@ export default function ProductsPage() {
                 <TableCell>
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                      {product.images[0] ? (
+                      {product.images && product.images[0] ? (
                         <img
-                          src={product.images[0].url}
-                          alt={product.images[0].alt}
+                          src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0].url}
+                          alt={product.nameEn || product.name || 'Product'}
                           className="w-full h-full object-cover rounded-lg"
                         />
                       ) : (
@@ -161,8 +167,8 @@ export default function ProductsPage() {
                       )}
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{product.nameEn}</div>
-                      <div className="text-sm text-gray-500">{product.nameZh}</div>
+                      <div className="font-medium text-gray-900">{product.nameEn || product.name || 'Unnamed Product'}</div>
+                      <div className="text-sm text-gray-500">{product.nameZh || product.description || ''}</div>
                     </div>
                   </div>
                 </TableCell>
@@ -180,14 +186,14 @@ export default function ProductsPage() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center space-x-2">
-                    <Badge variant={product.isActive ? "default" : "secondary"}>
-                      {product.isActive ? 'Active' : 'Inactive'}
+                    <Badge variant={(product.isActive || product.is_active) ? "default" : "secondary"}>
+                      {(product.isActive || product.is_active) ? 'Active' : 'Inactive'}
                     </Badge>
                   </div>
                 </TableCell>
                 <TableCell>
                   <div className="text-sm text-gray-500">
-                    {new Date(product.createdAt).toLocaleDateString()}
+                    {new Date(product.createdAt || product.created_at || Date.now()).toLocaleDateString()}
                   </div>
                 </TableCell>
                 <TableCell className="text-right">
@@ -197,7 +203,7 @@ export default function ProductsPage() {
                       size="sm"
                       onClick={() => toggleProductStatus(product.id)}
                     >
-                      {product.isActive ? (
+                      {(product.isActive || product.is_active) ? (
                         <EyeOff className="w-4 h-4" />
                       ) : (
                         <Eye className="w-4 h-4" />

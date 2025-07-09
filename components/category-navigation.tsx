@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Category } from '@/lib/data/categories'
+import { Category } from '@/lib/services/categories'
 
 export function CategoryNavigation() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -13,8 +13,10 @@ export function CategoryNavigation() {
       try {
         const response = await fetch('/api/categories')
         if (response.ok) {
-          const data = await response.json()
-          setCategories(data.filter((cat: Category) => cat.isActive))
+          const result = await response.json()
+          // API returns { success: true, data: categories }
+          const categoriesArray = Array.isArray(result.data) ? result.data : []
+          setCategories(categoriesArray.filter((cat: Category) => cat.is_active))
         }
       } catch (error) {
         console.error('Failed to fetch categories:', error)

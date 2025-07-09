@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
 
 // Supabase configuration with fallback values for deployment
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key'
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://zzexacrffmxmqrqamcxo.supabase.co'
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp6ZXhhY3JmZm14bXFycWFtY3hvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE5NzAxODEsImV4cCI6MjA2NzU0NjE4MX0.OjvVxog9bRc6zixbJTFp0Jgg-xzpv1ZuDKEba2-dG34'
 
 // Create Supabase client for client-side operations
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
@@ -13,10 +13,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   }
 })
 
-// Create Supabase client for server-side operations (with service role key)
+// Create Supabase client for server-side operations (using anon key for now since RLS is disabled)
 export const supabaseAdmin = createClient(
   supabaseUrl,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder-service-key',
+  supabaseAnonKey, // Using anon key since RLS is disabled
   {
     auth: {
       autoRefreshToken: false,
@@ -27,7 +27,7 @@ export const supabaseAdmin = createClient(
 
 // Check if Supabase is properly configured
 export const isSupabaseConfigured = () => {
-  return supabaseUrl !== 'https://placeholder.supabase.co' && 
+  return supabaseUrl !== 'https://placeholder.supabase.co' &&
          supabaseAnonKey !== 'placeholder-key'
 }
 

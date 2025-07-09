@@ -50,8 +50,22 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
   const [variants, setVariants] = useState<Variant[]>(product?.variants || [])
 
   // Images
-  const [images, setImages] = useState<ProductImage[]>(product?.images || [])
+  const [images, setImages] = useState<ProductImage[]>([])
   const [uploading, setUploading] = useState(false)
+
+  // Debug effect
+  useEffect(() => {
+    console.log('Component mounted, images state:', images)
+    console.log('Component mounted, categories state:', categories)
+  }, [])
+
+  useEffect(() => {
+    console.log('Images state changed:', images)
+  }, [images])
+
+  useEffect(() => {
+    console.log('Categories state changed:', categories)
+  }, [categories])
 
   // New variant form
   const [newVariant, setNewVariant] = useState({
@@ -82,11 +96,15 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
     try {
       const response = await fetch('/api/admin/categories')
       const data = await response.json()
-      if (data.success) {
+      if (data.success && Array.isArray(data.data)) {
         setCategories(data.data)
+      } else {
+        console.error('Categories data is not an array:', data)
+        setCategories([])
       }
     } catch (error) {
       console.error('Error fetching categories:', error)
+      setCategories([])
     }
   }
 
@@ -149,7 +167,12 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
           isPrimary: images.length === 0, // First image is primary
           order: images.length + 1
         }
-        setImages([...images, newImage])
+        setImages(prev => {
+          const updated = [...prev, newImage]
+          console.log('Images updated:', updated)
+          return updated
+        })
+        alert(`Image uploaded successfully! URL: ${result.url}. Total images: ${images.length + 1}`)
       } else {
         alert('Error uploading image: ' + result.error)
       }
@@ -328,9 +351,9 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select a category</option>
-              {categories.map((cat) => (
+              {Array.isArray(categories) && categories.map((cat) => (
                 <option key={cat.id} value={cat.name}>
-                  {cat.nameEn}
+                  {cat.name}
                 </option>
               ))}
               {/* Add existing categories from your products */}
@@ -381,10 +404,20 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
             </label>
           </div>
 
+          {/* Debug Display */}
+          <div className="mb-4 p-2 bg-blue-50 border border-blue-200 rounded text-sm">
+            <strong>Debug Info:</strong> {images.length} images in state
+            {images.length > 0 && (
+              <div className="mt-1 text-xs text-gray-600">
+                URLs: {images.map(img => img.url).join(', ')}
+              </div>
+            )}
+          </div>
+
           {/* Existing Images */}
           {images.length > 0 && (
             <div className="space-y-4">
-              <h4 className="font-medium">Uploaded Images</h4>
+              <h4 className="font-medium">Uploaded Images ({images.length})</h4>
               {images.map((image, index) => (
                 <div key={image.id} className="border rounded-lg p-4 bg-gray-50">
                   <div className="flex items-start space-x-4">

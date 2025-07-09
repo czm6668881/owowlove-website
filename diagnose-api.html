@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API 诊断工具</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .result { margin: 10px 0; padding: 10px; background: #f8f9fa; border-left: 4px solid #007bff; }
+        .error { border-left-color: #dc3545; background: #f8d7da; }
+        .success { border-left-color: #28a745; background: #d4edda; }
+        pre { background: #f8f9fa; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>OWOWLOVE.COM API 诊断</h1>
+    
+    <div class="test">
+        <h2>1. 测试分类 API</h2>
+        <button onclick="testCategories()">测试 /api/categories</button>
+        <div id="categoriesResult"></div>
+    </div>
+    
+    <div class="test">
+        <h2>2. 测试产品 API</h2>
+        <button onclick="testProducts()">测试 /api/products</button>
+        <div id="productsResult"></div>
+    </div>
+    
+    <div class="test">
+        <h2>3. 测试管理员分类 API</h2>
+        <button onclick="testAdminCategories()">测试 /api/admin/categories</button>
+        <div id="adminCategoriesResult"></div>
+    </div>
+    
+    <div class="test">
+        <h2>4. 测试管理员产品 API</h2>
+        <button onclick="testAdminProducts()">测试 /api/admin/products</button>
+        <div id="adminProductsResult"></div>
+    </div>
+
+    <script>
+        async function testAPI(url, resultId, description) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.innerHTML = `正在测试 ${description}...`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                const statusClass = response.ok ? 'success' : 'error';
+                const dataCount = data.data ? data.data.length : 0;
+                
+                resultDiv.innerHTML = `
+                    <div class="result ${statusClass}">
+                        <strong>状态:</strong> ${response.status} ${response.statusText}<br>
+                        <strong>成功:</strong> ${data.success}<br>
+                        <strong>数据数量:</strong> ${dataCount}<br>
+                        <strong>响应:</strong>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <strong>错误:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function testCategories() {
+            testAPI('https://owowlove.com/api/categories', 'categoriesResult', '分类 API');
+        }
+        
+        function testProducts() {
+            testAPI('https://owowlove.com/api/products', 'productsResult', '产品 API');
+        }
+        
+        function testAdminCategories() {
+            testAPI('https://owowlove.com/api/admin/categories', 'adminCategoriesResult', '管理员分类 API');
+        }
+        
+        function testAdminProducts() {
+            testAPI('https://owowlove.com/api/admin/products', 'adminProductsResult', '管理员产品 API');
+        }
+        
+        // 自动运行所有测试
+        window.onload = function() {
+            setTimeout(() => {
+                testCategories();
+                setTimeout(() => testProducts(), 1000);
+                setTimeout(() => testAdminCategories(), 2000);
+                setTimeout(() => testAdminProducts(), 3000);
+            }, 500);
+        };
+    </script>
+</body>
+</html>

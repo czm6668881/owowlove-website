@@ -1,83 +1,86 @@
 [
   {
-    "id": "prod-1",
-    "name": "Sexy Bunny Costume",
-    "description": "Premium bunny cosplay costume with ears and tail",
-    "price": 49.99,
+    "nameKey": "product.cow_bikini",
+    "nameEn": "Cow Bikini",
+    "descriptionEn": "",
+    "category": "Animal Costumes",
+    "tags": [],
+    "variants": [],
     "images": [
-      "/placeholder-product.jpg"
-    ],
-    "categoryId": "cat-1",
-    "variants": [
       {
-        "id": "var-1",
-        "size": "S",
-        "color": "White",
-        "price": 49.99,
-        "stock": 10
-      },
-      {
-        "id": "var-2",
-        "size": "M",
-        "color": "White",
-        "price": 49.99,
-        "stock": 15
-      },
-      {
-        "id": "var-3",
-        "size": "L",
-        "color": "Pink",
-        "price": 54.99,
-        "stock": 8
+        "id": "1751988124765-img-0",
+        "url": "/uploads/product-1751988095413.jpg",
+        "alt": "Cow Bikini - 2.jpg",
+        "isPrimary": true,
+        "order": 1
       }
     ],
-    "isListed": true
+    "rating": 0,
+    "reviews": 0,
+    "isActive": true,
+    "isNew": false,
+    "isSale": false,
+    "seoTitle": "",
+    "seoDescription": "",
+    "seoKeywords": [],
+    "id": "1751988124765",
+    "createdAt": "2025-07-08T15:22:04.765Z",
+    "updatedAt": "2025-07-08T15:22:04.765Z"
   },
   {
-    "id": "prod-2",
-    "name": "Cat Girl Outfit",
-    "description": "Adorable cat-themed cosplay set",
-    "price": 39.99,
+    "nameKey": "product.cow_bikini",
+    "nameEn": "Cow Bikini",
+    "descriptionEn": "",
+    "category": "Animal Costumes",
+    "tags": [],
+    "variants": [],
     "images": [
-      "/placeholder-product.jpg"
-    ],
-    "categoryId": "cat-2",
-    "variants": [
       {
-        "id": "var-4",
-        "size": "One Size",
-        "color": "Black",
-        "price": 39.99,
-        "stock": 20
+        "id": "1751988645925-img-0",
+        "url": "/uploads/product-1751988628595.jpg",
+        "alt": "Product - 2.jpg",
+        "isPrimary": true,
+        "order": 1
       }
     ],
-    "isListed": true
+    "rating": 0,
+    "reviews": 0,
+    "isActive": true,
+    "isNew": false,
+    "isSale": false,
+    "seoTitle": "",
+    "seoDescription": "",
+    "seoKeywords": [],
+    "id": "1751988645925",
+    "createdAt": "2025-07-08T15:30:45.925Z",
+    "updatedAt": "2025-07-08T15:30:45.925Z"
   },
   {
-    "id": "prod-3",
-    "name": "Lace Lingerie Set",
-    "description": "Elegant lace lingerie with premium materials",
-    "price": 69.99,
+    "nameKey": "product.cow_bikini",
+    "nameEn": "Cow Bikini",
+    "descriptionEn": "",
+    "category": "general",
+    "tags": [],
+    "variants": [],
     "images": [
-      "/placeholder-product.jpg"
-    ],
-    "categoryId": "cat-3",
-    "variants": [
       {
-        "id": "var-5",
-        "size": "S",
-        "color": "Red",
-        "price": 69.99,
-        "stock": 5
-      },
-      {
-        "id": "var-6",
-        "size": "M",
-        "color": "Black",
-        "price": 69.99,
-        "stock": 12
+        "id": "1751990425430-img-0",
+        "url": "/uploads/product-1751990411354.jpg",
+        "alt": "Cow Bikini - 2.jpg",
+        "isPrimary": true,
+        "order": 1
       }
     ],
-    "isListed": true
+    "rating": 0,
+    "reviews": 0,
+    "isActive": true,
+    "isNew": false,
+    "isSale": false,
+    "seoTitle": "",
+    "seoDescription": "",
+    "seoKeywords": [],
+    "id": "1751990425430",
+    "createdAt": "2025-07-08T16:00:25.430Z",
+    "updatedAt": "2025-07-08T16:00:25.430Z"
   }
 ]

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Data via API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .result { margin: 10px 0; padding: 10px; background: #f8f9fa; border-left: 4px solid #007bff; }
+        .error { border-left-color: #dc3545; background: #f8d7da; }
+        .success { border-left-color: #28a745; background: #d4edda; }
+    </style>
+</head>
+<body>
+    <h1>OWOWLOVE.COM - 数据创建工具</h1>
+    
+    <div class="section">
+        <h2>1. 创建分类数据</h2>
+        <button onclick="createCategories()">创建分类</button>
+        <div id="categoriesResult"></div>
+    </div>
+    
+    <div class="section">
+        <h2>2. 创建产品数据</h2>
+        <button onclick="createProducts()">创建产品</button>
+        <div id="productsResult"></div>
+    </div>
+    
+    <div class="section">
+        <h2>3. 验证数据</h2>
+        <button onclick="verifyData()">验证数据</button>
+        <div id="verifyResult"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://owowlove.com/api';
+        
+        async function createCategories() {
+            const result = document.getElementById('categoriesResult');
+            result.innerHTML = '正在创建分类...';
+            
+            const categories = [
+                { name: 'Sexy Cosplay', description: 'Sexy cosplay costumes and accessories', image: '/placeholder.jpg' },
+                { name: 'Bunny Costumes', description: 'Cute and sexy bunny costumes', image: '/placeholder.jpg' },
+                { name: 'Animal Costumes', description: 'Various animal-themed costumes', image: '/placeholder.jpg' }
+            ];
+            
+            try {
+                for (const category of categories) {
+                    const response = await fetch(`${API_BASE}/admin/categories`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(category)
+                    });
+                    const data = await response.json();
+                    console.log('Category created:', data);
+                }
+                result.innerHTML = '<div class="result success">分类创建成功！</div>';
+            } catch (error) {
+                result.innerHTML = `<div class="result error">分类创建失败: ${error.message}</div>`;
+            }
+        }
+        
+        async function createProducts() {
+            const result = document.getElementById('productsResult');
+            result.innerHTML = '正在创建产品...';
+            
+            // 首先获取分类ID
+            try {
+                const categoriesResponse = await fetch(`${API_BASE}/categories`);
+                const categoriesData = await categoriesResponse.json();
+                const categories = categoriesData.data;
+                
+                if (!categories || categories.length === 0) {
+                    result.innerHTML = '<div class="result error">请先创建分类！</div>';
+                    return;
+                }
+                
+                const products = [
+                    {
+                        name: 'Sexy Bunny Costume Set',
+                        description: 'Complete bunny costume with ears, tail, and bodysuit. Perfect for cosplay and special occasions.',
+                        price: 89.99,
+                        category: categories.find(c => c.name.includes('Bunny'))?.name || categories[0].name,
+                        variants: [
+                            { size: 'S', color: 'Black', price: '89.99', stock: '10' },
+                            { size: 'M', color: 'Black', price: '89.99', stock: '15' },
+                            { size: 'L', color: 'Black', price: '89.99', stock: '8' }
+                        ]
+                    },
+                    {
+                        name: 'Cat Girl Cosplay Outfit',
+                        description: 'Adorable cat girl costume with ears, tail, and outfit. High-quality materials and comfortable fit.',
+                        price: 79.99,
+                        category: categories.find(c => c.name.includes('Animal'))?.name || categories[0].name,
+                        variants: [
+                            { size: 'S', color: 'Pink', price: '79.99', stock: '12' },
+                            { size: 'M', color: 'Pink', price: '79.99', stock: '20' },
+                            { size: 'L', color: 'Pink', price: '79.99', stock: '5' }
+                        ]
+                    }
+                ];
+                
+                for (const product of products) {
+                    const response = await fetch(`${API_BASE}/admin/products`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(product)
+                    });
+                    const data = await response.json();
+                    console.log('Product created:', data);
+                }
+                
+                result.innerHTML = '<div class="result success">产品创建成功！</div>';
+            } catch (error) {
+                result.innerHTML = `<div class="result error">产品创建失败: ${error.message}</div>`;
+            }
+        }
+        
+        async function verifyData() {
+            const result = document.getElementById('verifyResult');
+            result.innerHTML = '正在验证数据...';
+            
+            try {
+                const [categoriesResponse, productsResponse] = await Promise.all([
+                    fetch(`${API_BASE}/categories`),
+                    fetch(`${API_BASE}/products`)
+                ]);
+                
+                const categoriesData = await categoriesResponse.json();
+                const productsData = await productsResponse.json();
+                
+                const categoriesCount = categoriesData.data?.length || 0;
+                const productsCount = productsData.data?.length || 0;
+                
+                result.innerHTML = `
+                    <div class="result success">
+                        <strong>数据验证结果：</strong><br>
+                        分类数量: ${categoriesCount}<br>
+                        产品数量: ${productsCount}<br>
+                        <br>
+                        <strong>分类列表：</strong><br>
+                        ${categoriesData.data?.map(c => `- ${c.name}`).join('<br>') || '无'}
+                        <br><br>
+                        <strong>产品列表：</strong><br>
+                        ${productsData.data?.map(p => `- ${p.name} ($${p.price})`).join('<br>') || '无'}
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `<div class="result error">验证失败: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

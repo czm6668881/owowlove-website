@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>快速API测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; font-size: 18px; }
+        .result { margin: 20px 0; padding: 20px; border: 3px solid #007bff; background: #f8f9fa; }
+        .success { border-color: #28a745; background: #d4edda; }
+        .error { border-color: #dc3545; background: #f8d7da; }
+        h1 { color: #007bff; }
+        button { padding: 20px 40px; font-size: 18px; background: #007bff; color: white; border: none; cursor: pointer; margin: 10px; }
+        pre { background: #f8f9fa; padding: 15px; overflow-x: auto; font-size: 14px; max-height: 300px; }
+    </style>
+</head>
+<body>
+    <h1>OWOWLOVE.COM 快速测试</h1>
+    
+    <button onclick="testAPI()">立即测试API</button>
+    
+    <div id="result">点击按钮开始测试...</div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '正在测试...';
+            resultDiv.className = 'result';
+            
+            try {
+                // 测试新的数据库API
+                console.log('Testing /api/test-db...');
+                const testResponse = await fetch('https://owowlove.com/api/test-db');
+                const testData = await testResponse.json();
+                
+                // 测试原始产品API
+                console.log('Testing /api/products...');
+                const prodResponse = await fetch('https://owowlove.com/api/products');
+                const prodData = await prodResponse.json();
+                
+                let html = '<h2>测试结果</h2>';
+                
+                // 显示测试API结果
+                if (testData.success) {
+                    html += `
+                        <div style="color: green; font-weight: bold;">
+                            ✅ 数据库连接成功！<br>
+                            分类: ${testData.data.categories.count} 个<br>
+                            产品: ${testData.data.products.count} 个
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div style="color: red; font-weight: bold;">
+                            ❌ 数据库连接失败<br>
+                            错误: ${testData.error}
+                        </div>
+                    `;
+                }
+                
+                // 显示产品API结果
+                if (prodData.success && prodData.data && prodData.data.length > 0) {
+                    html += `
+                        <div style="color: green; font-weight: bold; margin-top: 15px;">
+                            ✅ 产品API工作正常！<br>
+                            产品数量: ${prodData.data.length}
+                        </div>
+                    `;
+                    resultDiv.className = 'result success';
+                } else {
+                    html += `
+                        <div style="color: red; font-weight: bold; margin-top: 15px;">
+                            ❌ 产品API仍然返回空数据<br>
+                            返回数据: ${prodData.data ? prodData.data.length : 'null'}
+                        </div>
+                    `;
+                    resultDiv.className = 'result error';
+                }
+                
+                html += `
+                    <h3>详细数据:</h3>
+                    <h4>测试API响应:</h4>
+                    <pre>${JSON.stringify(testData, null, 2)}</pre>
+                    <h4>产品API响应:</h4>
+                    <pre>${JSON.stringify(prodData, null, 2)}</pre>
+                `;
+                
+                resultDiv.innerHTML = html;
+                
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h2>❌ 测试失败</h2>
+                    <p><strong>错误：</strong> ${error.message}</p>
+                `;
+            }
+        }
+        
+        // 页面加载后自动测试
+        window.onload = function() {
+            setTimeout(testAPI, 500);
+        };
+    </script>
+</body>
+</html>

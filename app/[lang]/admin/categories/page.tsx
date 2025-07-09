@@ -72,14 +72,23 @@ export default function CategoriesPage() {
     }
   }
 
-  const filteredCategories = categories.filter(category =>
-    category.nameEn.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    category.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const filteredCategories = categories.filter(category => {
+    const categoryNameEn = (category.nameEn || '').toLowerCase()
+    const categoryName = (category.name || '').toLowerCase()
+    const categoryDescription = (category.description || '').toLowerCase()
+    const searchLower = searchQuery.toLowerCase()
+    return categoryNameEn.includes(searchLower) ||
+           categoryName.includes(searchLower) ||
+           categoryDescription.includes(searchLower)
+  })
 
   const handleToggleStatus = async (id: string) => {
-    setCategories(prev => prev.map(cat => 
-      cat.id === id ? { ...cat, isActive: !cat.isActive } : cat
+    setCategories(prev => prev.map(cat =>
+      cat.id === id ? {
+        ...cat,
+        isActive: !(cat.isActive || cat.is_active),
+        is_active: !(cat.isActive || cat.is_active)
+      } : cat
     ))
   }
 
@@ -142,15 +151,15 @@ export default function CategoriesPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-2">
-                        <h3 className="font-semibold text-lg">{category.nameEn}</h3>
-                        <Badge variant={category.isActive ? "default" : "secondary"}>
-                          {category.isActive ? 'Active' : 'Inactive'}
+                        <h3 className="font-semibold text-lg">{category.nameEn || category.name || 'Unnamed Category'}</h3>
+                        <Badge variant={(category.isActive || category.is_active) ? "default" : "secondary"}>
+                          {(category.isActive || category.is_active) ? 'Active' : 'Inactive'}
                         </Badge>
                       </div>
-                      <p className="text-gray-600 text-sm mb-2">{category.description}</p>
+                      <p className="text-gray-600 text-sm mb-2">{category.description || ''}</p>
                       <div className="flex items-center space-x-4 text-sm text-gray-500">
-                        <span>Products: {category.productCount}</span>
-                        <span>Created: {new Date(category.createdAt).toLocaleDateString()}</span>
+                        <span>Products: {category.productCount || 0}</span>
+                        <span>Created: {new Date(category.createdAt || category.created_at || Date.now()).toLocaleDateString()}</span>
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -159,7 +168,7 @@ export default function CategoriesPage() {
                         size="sm"
                         onClick={() => handleToggleStatus(category.id)}
                       >
-                        {category.isActive ? 'Disable' : 'Enable'}
+                        {(category.isActive || category.is_active) ? 'Disable' : 'Enable'}
                       </Button>
                       <Link href={`/${lang}/admin/categories/${category.id}/edit`}>
                         <Button variant="outline" size="sm">
@@ -194,7 +203,7 @@ export default function CategoriesPage() {
         <Card>
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-green-600">
-              {categories.filter(c => c.isActive).length}
+              {categories.filter(c => c.isActive || c.is_active).length}
             </div>
             <div className="text-sm text-gray-600">Active Categories</div>
           </CardContent>
@@ -202,7 +211,7 @@ export default function CategoriesPage() {
         <Card>
           <CardContent className="p-6">
             <div className="text-2xl font-bold text-blue-600">
-              {categories.reduce((sum, c) => sum + c.productCount, 0)}
+              {categories.reduce((sum, c) => sum + (c.productCount || 0), 0)}
             </div>
             <div className="text-sm text-gray-600">Total Products</div>
           </CardContent>

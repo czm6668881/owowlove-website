@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Upload Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 50px auto; 
+            padding: 20px; 
+        }
+        .upload-area { 
+            border: 2px dashed #ccc; 
+            padding: 40px; 
+            text-align: center; 
+            margin: 20px 0; 
+            border-radius: 8px;
+        }
+        .result { 
+            margin: 20px 0; 
+            padding: 15px; 
+            border-radius: 5px; 
+        }
+        .success { background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .error { background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .info { background-color: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+        .preview img { 
+            max-width: 200px; 
+            border: 1px solid #ddd; 
+            margin: 10px; 
+            border-radius: 4px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover { background: #0056b3; }
+        input[type="file"] { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Simple Image Upload Test</h1>
+    
+    <div class="upload-area">
+        <h3>Test Image Upload</h3>
+        <input type="file" id="imageInput" accept="image/*" />
+        <br>
+        <button onclick="uploadImage()">Upload Image</button>
+        <button onclick="testExistingImages()">Test Existing Images</button>
+    </div>
+    
+    <div id="results"></div>
+    <div id="preview" class="preview"></div>
+
+    <script>
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+            results.appendChild(div);
+            results.scrollTop = results.scrollHeight;
+        }
+
+        async function uploadImage() {
+            const fileInput = document.getElementById('imageInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                addResult('Please select a file first!', 'error');
+                return;
+            }
+
+            addResult(`Starting upload: ${file.name} (${file.size} bytes)`, 'info');
+
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                addResult('Sending request to /api/admin/upload-image...', 'info');
+
+                const response = await fetch('/api/admin/upload-image', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                addResult(`Response status: ${response.status}`, 'info');
+
+                const result = await response.json();
+                addResult(`Response data: ${JSON.stringify(result, null, 2)}`, 'info');
+
+                if (result.success) {
+                    addResult(`✅ Upload successful! URL: ${result.url}`, 'success');
+                    
+                    // Show preview
+                    const preview = document.getElementById('preview');
+                    const img = document.createElement('img');
+                    img.src = result.url;
+                    img.alt = 'Uploaded image';
+                    img.onload = () => addResult('✅ Image preview loaded successfully', 'success');
+                    img.onerror = () => addResult('❌ Image preview failed to load', 'error');
+                    
+                    preview.innerHTML = '<h4>Uploaded Image Preview:</h4>';
+                    preview.appendChild(img);
+                } else {
+                    addResult(`❌ Upload failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addResult(`❌ Upload error: ${error.message}`, 'error');
+                console.error('Upload error:', error);
+            }
+        }
+
+        function testExistingImages() {
+            addResult('Testing existing images...', 'info');
+            
+            const testImages = [
+                '/uploads/product-1751797917528.jpg',
+                '/uploads/product-1751798944448.jpg',
+                '/uploads/product-1751799844317.jpg',
+                '/placeholder.jpg'
+            ];
+
+            testImages.forEach(imagePath => {
+                const img = document.createElement('img');
+                img.src = imagePath;
+                img.style.maxWidth = '150px';
+                img.style.margin = '5px';
+                
+                img.onload = () => {
+                    addResult(`✅ Existing image loaded: ${imagePath}`, 'success');
+                };
+                
+                img.onerror = () => {
+                    addResult(`❌ Existing image failed: ${imagePath}`, 'error');
+                };
+                
+                document.getElementById('preview').appendChild(img);
+            });
+        }
+
+        // Test on page load
+        window.onload = () => {
+            addResult('🚀 Simple upload test page loaded', 'info');
+            addResult('Select an image and click "Upload Image" to test', 'info');
+        };
+    </script>
+</body>
+</html>

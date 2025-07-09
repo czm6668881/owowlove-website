@@ -6,14 +6,11 @@ import { Heart } from 'lucide-react'
 
 interface ProductForFavorites {
   id: string
-  nameEn: string
+  name: string
   variants: Array<{
     price: number
   }>
-  images: Array<{
-    url: string
-    isPrimary: boolean
-  }>
+  images: string[]
 }
 
 interface FavoriteButtonProps {
@@ -32,20 +29,20 @@ export function FavoriteButton({
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
   
   const isProductFavorite = isFavorite(product.id)
-  const primaryImage = product.images.find(img => img.isPrimary) || product.images[0]
+  const primaryImage = product.images[0] || '/placeholder.jpg'
   const minPrice = Math.min(...product.variants.map(v => v.price))
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    
+
     if (isProductFavorite) {
       removeFromFavorites(product.id)
     } else {
       addToFavorites({
         productId: product.id,
-        productName: product.nameEn,
-        productImage: primaryImage?.url || '/placeholder.jpg',
+        productName: product.name,
+        productImage: primaryImage,
         price: minPrice
       })
     }
