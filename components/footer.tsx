@@ -2,8 +2,10 @@
 
 import Link from 'next/link'
 import { Mail, MapPin, Clock } from 'lucide-react'
+import { useSiteSettings } from '@/hooks/use-site-settings'
 
 export default function Footer() {
+  const { storeEmail } = useSiteSettings()
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -66,7 +68,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-pink-400" />
-                <span className="text-gray-300">owowlove@163.com</span>
+                <span className="text-gray-300">{storeEmail}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4 text-pink-400" />

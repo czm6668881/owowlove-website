@@ -35,9 +35,7 @@ const nextConfig = {
     ],
   },
   // Vercel specific optimizations
-  experimental: {
-    serverComponentsExternalPackages: ['bcryptjs', 'jsonwebtoken'],
-  },
+  serverExternalPackages: ['bcryptjs', 'jsonwebtoken'],
   // Static file serving
   async rewrites() {
     return [
