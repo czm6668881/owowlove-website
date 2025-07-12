@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Image Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .image-test {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .image-test img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 1px solid #ccc;
+        }
+        .image-info {
+            flex: 1;
+        }
+        .status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.loading { background: #fff3cd; color: #856404; }
+        .log {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Production Image Test</h1>
+    
+    <div class="test-container">
+        <h2>📊 System Information</h2>
+        <div id="system-info">
+            <div><strong>Current URL:</strong> <span id="current-url"></span></div>
+            <div><strong>User Agent:</strong> <span id="user-agent"></span></div>
+            <div><strong>Timestamp:</strong> <span id="timestamp"></span></div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🖼️ Image Tests</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearLog()">Clear Log</button>
+        <button onclick="testProductsAPI()">Test Products API</button>
+        
+        <div id="image-tests">
+            <!-- Tests will be populated here -->
+        </div>
+        
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        // Initialize page
+        document.getElementById('current-url').textContent = window.location.href;
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+        document.getElementById('timestamp').textContent = new Date().toISOString();
+
+        const log = document.getElementById('log');
+        const imageTests = document.getElementById('image-tests');
+
+        function addLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            log.innerHTML += `[${timestamp}] ${message}\n`;
+            log.scrollTop = log.scrollHeight;
+            console.log(message);
+        }
+
+        function clearLog() {
+            log.innerHTML = '';
+        }
+
+        function createImageTest(url, name) {
+            const testDiv = document.createElement('div');
+            testDiv.className = 'image-test';
+            testDiv.innerHTML = `
+                <img src="${url}" alt="${name}" onload="handleImageLoad('${url}')" onerror="handleImageError('${url}')">
+                <div class="image-info">
+                    <div><strong>${name}</strong></div>
+                    <div>URL: <code>${url}</code></div>
+                    <div>Status: <span class="status loading" id="status-${btoa(url)}">Loading...</span></div>
+                </div>
+            `;
+            return testDiv;
+        }
+
+        function handleImageLoad(url) {
+            const statusId = 'status-' + btoa(url);
+            const statusEl = document.getElementById(statusId);
+            if (statusEl) {
+                statusEl.textContent = 'SUCCESS';
+                statusEl.className = 'status success';
+            }
+            addLog(`✅ Image loaded successfully: ${url}`);
+        }
+
+        function handleImageError(url) {
+            const statusId = 'status-' + btoa(url);
+            const statusEl = document.getElementById(statusId);
+            if (statusEl) {
+                statusEl.textContent = 'ERROR';
+                statusEl.className = 'status error';
+            }
+            addLog(`❌ Image failed to load: ${url}`);
+        }
+
+        async function testProductsAPI() {
+            addLog('🔍 Testing Products API...');
+            
+            try {
+                const response = await fetch('/api/products');
+                const data = await response.json();
+                
+                if (data.success) {
+                    addLog(`✅ Products API success: ${data.data.length} products`);
+                    
+                    // Clear existing tests
+                    imageTests.innerHTML = '';
+                    
+                    // Test each product image
+                    data.data.forEach((product, index) => {
+                        if (product.images && product.images.length > 0) {
+                            const imageUrl = product.images[0];
+                            addLog(`📸 Testing product ${index + 1}: ${product.name} - ${imageUrl}`);
+                            
+                            const testDiv = createImageTest(imageUrl, `${product.name} (${product.id})`);
+                            imageTests.appendChild(testDiv);
+                        }
+                    });
+                } else {
+                    addLog(`❌ Products API failed: ${data.message || 'Unknown error'}`);
+                }
+            } catch (error) {
+                addLog(`❌ Products API error: ${error.message}`);
+            }
+        }
+
+        async function testDirectImageURLs() {
+            addLog('🖼️ Testing direct image URLs...');
+            
+            const testUrls = [
+                '/api/image/product-1752068376427.jpg',
+                '/api/image/product-1752080189101.jpeg',
+                '/api/image/product-1752312776393.jpeg',
+                '/uploads/product-1752068376427.jpg',
+                '/uploads/product-1752080189101.jpeg',
+                '/uploads/product-1752312776393.jpeg'
+            ];
+
+            testUrls.forEach((url, index) => {
+                const testDiv = createImageTest(url, `Direct Test ${index + 1}`);
+                imageTests.appendChild(testDiv);
+            });
+        }
+
+        async function testImageMapping() {
+            addLog('📋 Testing image mapping file...');
+            
+            try {
+                const response = await fetch('/image-mapping.json');
+                const mapping = await response.json();
+                
+                addLog(`✅ Image mapping loaded: ${Object.keys(mapping).length} images`);
+                
+                Object.keys(mapping).forEach((filename, index) => {
+                    const url = `/api/image/${filename}`;
+                    const testDiv = createImageTest(url, `Mapping Test: ${filename}`);
+                    imageTests.appendChild(testDiv);
+                });
+                
+            } catch (error) {
+                addLog(`❌ Image mapping error: ${error.message}`);
+            }
+        }
+
+        async function runAllTests() {
+            addLog('🚀 Starting comprehensive image tests...');
+            clearLog();
+            
+            // Clear existing tests
+            imageTests.innerHTML = '';
+            
+            // Run all tests
+            await testProductsAPI();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testDirectImageURLs();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testImageMapping();
+            
+            addLog('🎉 All tests initiated. Check image loading status above.');
+        }
+
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            addLog('🔄 Page loaded, running initial tests...');
+            setTimeout(runAllTests, 1000);
+        });
+    </script>
+</body>
+</html>
