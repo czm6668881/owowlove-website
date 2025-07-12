@@ -1,11 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
+import { writeFile, mkdir, readFile } from 'fs/promises'
 import { join } from 'path'
 import { existsSync } from 'fs'
+
+// CORS headers
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+}
+
+// OPTIONS handler for CORS
+export async function OPTIONS() {
+  return new NextResponse(null, { status: 200, headers: corsHeaders })
+}
 
 export async function POST(request: NextRequest) {
   try {
     console.log('🔄 Starting image upload process...')
+    console.log('🌍 Environment:', process.env.NODE_ENV)
+    console.log('📍 Current working directory:', process.cwd())
 
     const formData = await request.formData()
     console.log('✅ FormData parsed successfully')
@@ -21,11 +35,7 @@ export async function POST(request: NextRequest) {
         error: 'No file provided. Please select an image file.'
       }, {
         status: 400,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST',
-          'Access-Control-Allow-Headers': 'Content-Type',
-        }
+        headers: corsHeaders
       })
     }
 
@@ -53,17 +63,29 @@ export async function POST(request: NextRequest) {
     }
     console.log('✅ File size validation passed')
 
-    // 创建产品图片目录 - 统一使用 uploads 目录
+    // 创建产品图片目录 - 环境感知的目录选择
     console.log('📁 Creating upload directory...')
-    const uploadsDir = join(process.cwd(), 'public', 'uploads')
-    console.log('📂 Upload directory path:', uploadsDir)
 
-    if (!existsSync(uploadsDir)) {
-      console.log('📁 Directory does not exist, creating...')
-      await mkdir(uploadsDir, { recursive: true })
-      console.log('✅ Directory created successfully')
-    } else {
-      console.log('✅ Directory already exists')
+    // 生产环境使用 /tmp 目录，开发环境使用 public/uploads
+    const isProduction = process.env.NODE_ENV === 'production'
+    const uploadsDir = isProduction
+      ? join('/tmp', 'uploads')
+      : join(process.cwd(), 'public', 'uploads')
+
+    console.log('📂 Upload directory path:', uploadsDir)
+    console.log('🌍 Using production path:', isProduction)
+
+    try {
+      if (!existsSync(uploadsDir)) {
+        console.log('📁 Directory does not exist, creating...')
+        await mkdir(uploadsDir, { recursive: true })
+        console.log('✅ Directory created successfully')
+      } else {
+        console.log('✅ Directory already exists')
+      }
+    } catch (dirError) {
+      console.error('❌ Failed to create directory:', dirError)
+      throw new Error(`Failed to create upload directory: ${dirError.message}`)
     }
 
     // 生成唯一文件名
@@ -81,13 +103,20 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes)
     console.log('✅ Buffer created, size:', buffer.length)
 
-    // 保存到文件系统（开发环境）
+    // 保存到文件系统
     console.log('💾 Writing file to disk...')
-    await writeFile(filepath, buffer)
-    console.log('✅ File written successfully')
+    try {
+      await writeFile(filepath, buffer)
+      console.log('✅ File written successfully to:', filepath)
+    } catch (writeError) {
+      console.error('❌ Failed to write file:', writeError)
+      throw new Error(`Failed to save file: ${writeError.message}`)
+    }
 
-    // 同时保存到数据库（生产环境备用）
-    await saveImageToDatabase(filename, buffer, file.type)
+    // 同时保存到映射文件（生产环境备用）
+    if (isProduction) {
+      await saveImageToMapping(filename, buffer, file.type)
+    }
 
     // 返回统一的API路径
     const imageUrl = `/api/image/${filename}`
@@ -108,11 +137,7 @@ export async function POST(request: NextRequest) {
         type: file.type
       }
     }, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      }
+      headers: corsHeaders
     })
 
   } catch (error) {
@@ -143,7 +168,49 @@ export async function POST(request: NextRequest) {
         code: error.code,
         stack: error.stack
       } : undefined
-    }, { status: 500 })
+    }, {
+      status: 500,
+      headers: corsHeaders
+    })
+  }
+}
+
+// 保存图片到映射文件的函数（生产环境备用）
+async function saveImageToMapping(filename: string, buffer: Buffer, mimeType: string) {
+  try {
+    console.log('💾 Saving image to mapping file...')
+
+    // 将buffer转换为base64字符串
+    const base64Data = buffer.toString('base64')
+    const dataUrl = `data:${mimeType};base64,${base64Data}`
+
+    // 读取现有映射文件
+    const mappingPath = join(process.cwd(), 'public', 'image-mapping.json')
+    let mapping = {}
+
+    try {
+      if (existsSync(mappingPath)) {
+        const mappingContent = await readFile(mappingPath, 'utf-8')
+        mapping = JSON.parse(mappingContent)
+      }
+    } catch (readError) {
+      console.log('⚠️  Could not read existing mapping file, creating new one')
+    }
+
+    // 添加新图片到映射
+    mapping[filename] = {
+      data: dataUrl,
+      size: buffer.length,
+      mimeType: mimeType
+    }
+
+    // 保存更新的映射文件
+    await writeFile(mappingPath, JSON.stringify(mapping, null, 2))
+    console.log(`✅ Image added to mapping file: ${filename}`)
+
+  } catch (error) {
+    console.error('❌ Failed to save image to mapping file:', error)
+    // 不抛出错误，因为文件系统保存已经成功
   }
 }
 

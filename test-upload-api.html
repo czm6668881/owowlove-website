@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Upload API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .upload-form {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .upload-form.dragover {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        .log {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.info { background: #d1ecf1; color: #0c5460; }
+        .preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Upload API Test</h1>
+    
+    <div class="container">
+        <h2>📤 Image Upload Test</h2>
+        
+        <div class="upload-form" id="uploadForm">
+            <p>📁 Drag and drop an image here or click to select</p>
+            <input type="file" id="fileInput" accept="image/*" />
+            <br>
+            <button onclick="uploadImage()" id="uploadBtn" disabled>Upload Image</button>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+        
+        <div id="preview"></div>
+        <div id="status"></div>
+    </div>
+
+    <div class="container">
+        <h2>📋 Upload Log</h2>
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const uploadForm = document.getElementById('uploadForm');
+        const log = document.getElementById('log');
+        const status = document.getElementById('status');
+        const preview = document.getElementById('preview');
+
+        let selectedFile = null;
+
+        // File input change handler
+        fileInput.addEventListener('change', handleFileSelect);
+
+        // Drag and drop handlers
+        uploadForm.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadForm.classList.add('dragover');
+        });
+
+        uploadForm.addEventListener('dragleave', () => {
+            uploadForm.classList.remove('dragover');
+        });
+
+        uploadForm.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadForm.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        uploadForm.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        function handleFileSelect(e) {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        }
+
+        function handleFile(file) {
+            selectedFile = file;
+            
+            addLog(`📁 File selected: ${file.name}`);
+            addLog(`📊 Size: ${file.size} bytes`);
+            addLog(`📄 Type: ${file.type}`);
+            
+            // Show preview
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.innerHTML = `<img src="${e.target.result}" class="preview" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            uploadBtn.disabled = false;
+            showStatus('File ready for upload', 'info');
+        }
+
+        async function uploadImage() {
+            if (!selectedFile) {
+                showStatus('No file selected', 'error');
+                return;
+            }
+
+            uploadBtn.disabled = true;
+            showStatus('Uploading...', 'info');
+            addLog('🚀 Starting upload...');
+
+            try {
+                const formData = new FormData();
+                formData.append('image', selectedFile);
+
+                addLog('📤 Sending request to /api/admin/upload-image');
+                
+                const response = await fetch('/api/admin/upload-image', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                addLog(`📊 Response status: ${response.status}`);
+                addLog(`📊 Response headers: ${JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2)}`);
+
+                const responseText = await response.text();
+                addLog(`📊 Response body: ${responseText}`);
+
+                if (response.ok) {
+                    try {
+                        const result = JSON.parse(responseText);
+                        if (result.success) {
+                            showStatus(`✅ Upload successful! URL: ${result.url}`, 'success');
+                            addLog(`✅ Upload successful!`);
+                            addLog(`🔗 Image URL: ${result.url}`);
+                            addLog(`📁 Filename: ${result.filename}`);
+                            
+                            // Test the uploaded image
+                            testUploadedImage(result.url);
+                        } else {
+                            showStatus(`❌ Upload failed: ${result.error}`, 'error');
+                            addLog(`❌ Upload failed: ${result.error}`);
+                        }
+                    } catch (parseError) {
+                        showStatus('❌ Invalid JSON response', 'error');
+                        addLog(`❌ JSON parse error: ${parseError.message}`);
+                    }
+                } else {
+                    showStatus(`❌ HTTP ${response.status}: Upload failed`, 'error');
+                    addLog(`❌ HTTP ${response.status}: Upload failed`);
+                    
+                    // Try to parse error response
+                    try {
+                        const errorResult = JSON.parse(responseText);
+                        if (errorResult.error) {
+                            addLog(`❌ Error details: ${errorResult.error}`);
+                        }
+                        if (errorResult.debug) {
+                            addLog(`🔍 Debug info: ${JSON.stringify(errorResult.debug, null, 2)}`);
+                        }
+                    } catch (parseError) {
+                        addLog(`❌ Raw error response: ${responseText}`);
+                    }
+                }
+
+            } catch (error) {
+                showStatus(`❌ Network error: ${error.message}`, 'error');
+                addLog(`❌ Network error: ${error.message}`);
+            } finally {
+                uploadBtn.disabled = false;
+            }
+        }
+
+        async function testUploadedImage(imageUrl) {
+            addLog('🔍 Testing uploaded image...');
+            
+            try {
+                const response = await fetch(imageUrl);
+                addLog(`📸 Image test: ${response.status} - ${response.statusText}`);
+                
+                if (response.ok) {
+                    const contentType = response.headers.get('content-type');
+                    const contentLength = response.headers.get('content-length');
+                    addLog(`📄 Content-Type: ${contentType}`);
+                    addLog(`📊 Content-Length: ${contentLength} bytes`);
+                    
+                    // Show the uploaded image
+                    const uploadedPreview = document.createElement('div');
+                    uploadedPreview.innerHTML = `
+                        <h3>✅ Uploaded Image</h3>
+                        <img src="${imageUrl}" class="preview" alt="Uploaded image">
+                        <p><a href="${imageUrl}" target="_blank">Open in new tab</a></p>
+                    `;
+                    preview.appendChild(uploadedPreview);
+                } else {
+                    addLog(`❌ Image test failed: ${response.status}`);
+                }
+            } catch (error) {
+                addLog(`❌ Image test error: ${error.message}`);
+            }
+        }
+
+        function addLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            log.textContent += `[${timestamp}] ${message}\n`;
+            log.scrollTop = log.scrollHeight;
+            console.log(message);
+        }
+
+        function clearLog() {
+            log.textContent = '';
+        }
+
+        function showStatus(message, type) {
+            status.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        // Initialize
+        addLog('🔧 Upload API Test initialized');
+        addLog(`🌐 Current URL: ${window.location.href}`);
+        addLog('📁 Select an image file to test upload functionality');
+    </script>
+</body>
+</html>
