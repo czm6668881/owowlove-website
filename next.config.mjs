@@ -8,7 +8,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ['localhost', 'owowlove.vercel.app'],
+    domains: ['localhost', 'owowlove.vercel.app', 'owowlove.com', 'www.owowlove.com'],
     remotePatterns: [
       {
         protocol: 'http',
@@ -30,6 +30,26 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '*.vercel.app',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'owowlove.com',
+        pathname: '/api/image/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'owowlove.com',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.owowlove.com',
+        pathname: '/api/image/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.owowlove.com',
         pathname: '/uploads/**',
       },
     ],

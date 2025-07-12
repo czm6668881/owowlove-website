@@ -11,10 +11,42 @@ export async function GET(request: NextRequest, { params }: Props) {
   try {
     const resolvedParams = await params
     const filePath = resolvedParams.path.join('/')
-    const fullPath = join(process.cwd(), 'public', 'uploads', filePath)
-    
-    // 检查文件是否存在
-    if (!existsSync(fullPath)) {
+
+    console.log(`🖼️ Uploads API request for: ${filePath}`)
+    console.log(`🌍 Environment: ${process.env.NODE_ENV}`)
+
+    // 清理文件路径
+    const cleanPath = filePath
+      .replace(/['"(){}[\]]/g, '')
+      .replace(/\s+/g, '')
+      .replace(/\0/g, '')
+      .replace(/(\.(jpg|jpeg|png|gif|webp))[^a-zA-Z]*$/i, '$1')
+
+    console.log(`🧹 Cleaned path: ${cleanPath}`)
+
+    // 尝试多个可能的路径
+    const possiblePaths = [
+      join(process.cwd(), 'public', 'uploads', cleanPath),
+      join(process.cwd(), 'public', cleanPath),
+      join(process.cwd(), 'uploads', cleanPath),
+      // 生产环境特殊路径
+      join('/var/www/uploads', cleanPath),
+      join('/tmp/uploads', cleanPath),
+    ]
+
+    let fullPath = ''
+    for (const path of possiblePaths) {
+      console.log(`🔍 Checking uploads path: ${path}`)
+      if (existsSync(path)) {
+        fullPath = path
+        console.log(`✅ Found uploads file at: ${path}`)
+        break
+      }
+    }
+
+    if (!fullPath) {
+      console.log(`❌ Uploads file not found: ${filePath} (cleaned: ${cleanPath})`)
+      console.log(`📁 Checked paths:`, possiblePaths)
       return new NextResponse('File not found', { status: 404 })
     }
 

@@ -54,28 +54,34 @@ export function ImageUpload({ images, onChange }: ImageUploadProps) {
         const formData = new FormData()
         formData.append('file', file)
 
+        console.log(`🔄 Uploading image: ${file.name} (${file.size} bytes)`)
+
         const response = await fetch('/api/admin/upload', {
           method: 'POST',
           body: formData,
         })
 
         const result = await response.json()
+        console.log('Upload response:', result)
 
         if (result.success) {
+          const imageUrl = result.data?.url || result.url
           const newImage: ProductImage = {
             id: Date.now().toString() + i,
-            url: result.data.url,
+            url: imageUrl,
             alt: file.name.replace(/\.[^/.]+$/, ''), // Remove extension
             isPrimary: images.length === 0 && i === 0, // First image is primary
             order: images.length + i + 1
           }
           newImages.push(newImage)
+          console.log(`✅ Image uploaded: ${file.name} -> ${imageUrl}`)
         } else {
-          alert(`Failed to upload ${file.name}: ${result.error}`)
+          console.error(`❌ Upload failed for ${file.name}:`, result.error)
+          alert(`❌ Failed to upload ${file.name}: ${result.error}`)
         }
       } catch (error) {
-        console.error('Upload error:', error)
-        alert(`Failed to upload ${file.name}`)
+        console.error('❌ Upload error:', error)
+        alert(`❌ Failed to upload ${file.name}. Please try again.`)
       }
     }
 

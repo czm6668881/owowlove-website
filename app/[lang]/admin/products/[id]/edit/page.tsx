@@ -68,7 +68,7 @@ export default function EditProductPage() {
             Back to Products
           </Button>
           <h1 className="text-3xl font-bold">Edit Product</h1>
-          <p className="text-gray-600 mt-2">Product: {product.nameEn}</p>
+          <p className="text-gray-600 mt-2">Product: {product.name}</p>
         </div>
       </div>
 

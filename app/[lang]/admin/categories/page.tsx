@@ -53,24 +53,7 @@ export default function CategoriesPage() {
     }
   }
 
-  const deleteCategory = async (categoryId: string) => {
-    if (!confirm('Are you sure you want to delete this category?')) return
 
-    try {
-      const response = await fetch(`/api/admin/categories/${categoryId}`, {
-        method: 'DELETE'
-      })
-      const data = await response.json()
-      if (data.success) {
-        setCategories(categories.filter(c => c.id !== categoryId))
-      } else {
-        alert('Error deleting category: ' + data.error)
-      }
-    } catch (error) {
-      console.error('Error deleting category:', error)
-      alert('Error deleting category')
-    }
-  }
 
   const filteredCategories = categories.filter(category => {
     const categoryNameEn = (category.nameEn || '').toLowerCase()
@@ -83,16 +66,88 @@ export default function CategoriesPage() {
   })
 
   const handleToggleStatus = async (id: string) => {
-    setCategories(prev => prev.map(cat =>
-      cat.id === id ? {
-        ...cat,
-        isActive: !(cat.isActive || cat.is_active),
-        is_active: !(cat.isActive || cat.is_active)
-      } : cat
-    ))
+    const category = categories.find(c => c.id === id)
+    if (!category) return
+
+    const newStatus = !(category.isActive || category.is_active)
+
+    try {
+      const response = await fetch(`/api/admin/categories/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: category.name,
+          nameEn: category.nameEn || category.name,
+          description: category.description,
+          isActive: newStatus
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        // Update local state
+        setCategories(prev => prev.map(cat =>
+          cat.id === id ? {
+            ...cat,
+            isActive: newStatus,
+            is_active: newStatus
+          } : cat
+        ))
+      } else {
+        alert('Error updating category status: ' + result.error)
+      }
+    } catch (error) {
+      console.error('Error updating category status:', error)
+      alert('Error updating category status')
+    }
   }
 
+  const deleteCategory = async (id: string) => {
+    try {
+      // First try to delete without force
+      const response = await fetch(`/api/admin/categories/${id}`, {
+        method: 'DELETE',
+      })
 
+      const result = await response.json()
+
+      if (result.success) {
+        setCategories(prev => prev.filter(cat => cat.id !== id))
+        alert(result.message)
+      } else if (result.productCount && result.productCount > 0) {
+        // Category has products, ask user what to do
+        const forceDelete = confirm(
+          `This category has ${result.productCount} product(s) associated with it.\n\n` +
+          `Click OK to delete the category and move products to uncategorized.\n` +
+          `Click Cancel to keep the category.`
+        )
+
+        if (forceDelete) {
+          // Force delete
+          const forceResponse = await fetch(`/api/admin/categories/${id}?force=true`, {
+            method: 'DELETE',
+          })
+
+          const forceResult = await forceResponse.json()
+
+          if (forceResult.success) {
+            setCategories(prev => prev.filter(cat => cat.id !== id))
+            alert(forceResult.message)
+          } else {
+            alert('Error deleting category: ' + forceResult.error)
+          }
+        }
+      } else {
+        alert('Error deleting category: ' + result.error)
+      }
+    } catch (error) {
+      console.error('Error deleting category:', error)
+      alert('Error deleting category')
+    }
+  }
 
   return (
     <div className="space-y-6">

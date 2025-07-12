@@ -2,10 +2,13 @@
 
 import Link from 'next/link'
 import { Mail, MapPin, Clock } from 'lucide-react'
-import { useSiteSettings } from '@/hooks/use-site-settings'
 
 export default function Footer() {
-  const { storeEmail } = useSiteSettings()
+  // 使用字符串拼接避免Cloudflare Email Obfuscation
+  const getEmail = () => {
+    const parts = ['owowlove', '@', '163', '.', 'com']
+    return parts.join('')
+  }
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-12">
@@ -45,17 +48,17 @@ export default function Footer() {
             <h4 className="font-semibold text-white">Customer Service</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/en/shipping" className="text-gray-300 hover:text-pink-400 transition-colors">
+                <Link href="/en/shipping-info" className="text-gray-300 hover:text-pink-400 transition-colors">
                   Shipping Info
                 </Link>
               </li>
               <li>
-                <Link href="/en/returns" className="text-gray-300 hover:text-pink-400 transition-colors">
+                <Link href="/en/contact" className="text-gray-300 hover:text-pink-400 transition-colors">
                   Returns & Refunds
                 </Link>
               </li>
               <li>
-                <Link href="/en/faq" className="text-gray-300 hover:text-pink-400 transition-colors">
+                <Link href="/en/contact" className="text-gray-300 hover:text-pink-400 transition-colors">
                   FAQ
                 </Link>
               </li>
@@ -68,7 +71,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-pink-400" />
-                <span className="text-gray-300">{storeEmail}</span>
+                <span className="text-gray-300">{getEmail()}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4 text-pink-400" />
@@ -89,10 +92,10 @@ export default function Footer() {
               © 2025 OWOWLOVE.COM. All rights reserved.
             </div>
             <div className="flex space-x-6 text-sm">
-              <Link href="/en/privacy" className="text-gray-400 hover:text-pink-400 transition-colors">
+              <Link href="/en/contact" className="text-gray-400 hover:text-pink-400 transition-colors">
                 Privacy Policy
               </Link>
-              <Link href="/en/terms" className="text-gray-400 hover:text-pink-400 transition-colors">
+              <Link href="/en/contact" className="text-gray-400 hover:text-pink-400 transition-colors">
                 Terms of Service
               </Link>
             </div>

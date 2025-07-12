@@ -14,22 +14,30 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { 
-  Plus, 
-  Search, 
-  Edit, 
-  Trash2, 
-  Eye, 
+import {
+  Plus,
+  Search,
+  Edit,
+  Trash2,
+  Eye,
   EyeOff,
   Package
 } from 'lucide-react'
 import { Product } from '@/lib/types/product'
+import { ProductImage } from '@/components/product/product-image'
+
+// Type to handle both file-based and Supabase-based products
+interface AdminProduct extends Omit<Product, 'category'> {
+  category: string | { id: string; name: string; description: string; image: string } | undefined
+  name?: string // For Supabase products
+  nameEn?: string // For file-based products
+}
 
 export default function ProductsPage() {
   const params = useParams()
   const lang = params?.lang as string || 'en'
   
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<AdminProduct[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -89,7 +97,10 @@ export default function ProductsPage() {
 
   const filteredProducts = products.filter(product => {
     const productName = (product.nameEn || product.name || '').toLowerCase()
-    const productCategory = (product.category || '').toLowerCase()
+    // Handle both string and object category types
+    const productCategory = typeof product.category === 'string'
+      ? product.category.toLowerCase()
+      : (product.category?.name || '').toLowerCase()
     const searchLower = searchQuery.toLowerCase()
     return productName.includes(searchLower) || productCategory.includes(searchLower)
   })
@@ -155,9 +166,9 @@ export default function ProductsPage() {
               <TableRow key={product.id}>
                 <TableCell>
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
                       {product.images && product.images[0] ? (
-                        <img
+                        <ProductImage
                           src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0].url}
                           alt={product.nameEn || product.name || 'Product'}
                           className="w-full h-full object-cover rounded-lg"
@@ -173,7 +184,11 @@ export default function ProductsPage() {
                   </div>
                 </TableCell>
                 <TableCell>
-                  <Badge variant="secondary">{product.category}</Badge>
+                  <Badge variant="secondary">
+                    {typeof product.category === 'string'
+                      ? product.category
+                      : product.category?.name || 'No Category'}
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   <div className="text-sm">

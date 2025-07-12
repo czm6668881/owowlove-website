@@ -38,16 +38,16 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
   const [saving, setSaving] = useState(false)
 
   // Basic product info
-  const [nameEn, setNameEn] = useState(product?.nameEn || '')
-  const [descriptionEn, setDescriptionEn] = useState(product?.descriptionEn || '')
-  const [category, setCategory] = useState(product?.category || '')
-  const [isActive, setIsActive] = useState(product?.isActive ?? true)
+  const [nameEn, setNameEn] = useState('')
+  const [descriptionEn, setDescriptionEn] = useState('')
+  const [category, setCategory] = useState('')
+  const [isActive, setIsActive] = useState(true)
 
   // Categories
   const [categories, setCategories] = useState<any[]>([])
   
   // Variants
-  const [variants, setVariants] = useState<Variant[]>(product?.variants || [])
+  const [variants, setVariants] = useState<Variant[]>([])
 
   // Images
   const [images, setImages] = useState<ProductImage[]>([])
@@ -75,22 +75,67 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
     stock: '0'
   })
 
+  // Load product data in edit mode
+  useEffect(() => {
+    if (isEditing && product) {
+      console.log('🔄 Loading product data for editing:', product)
+
+      // Load basic info
+      setNameEn(product.name || '')
+      setDescriptionEn(product.description || '')
+      setIsActive(product.is_active ?? true)
+
+      // Load category - need to find category name from category_id
+      if (product.category_id) {
+        // We'll set this after categories are loaded
+        console.log('📂 Product category_id:', product.category_id)
+      }
+
+      // Load variants
+      if (product.variants && Array.isArray(product.variants)) {
+        console.log('📦 Loading variants:', product.variants)
+        setVariants(product.variants.map((variant: any) => ({
+          id: variant.id || Date.now().toString(),
+          size: variant.size || '',
+          color: variant.color || '',
+          price: variant.price || 0,
+          stock: variant.stock || 0,
+          sku: variant.sku || `${product.name}-${variant.size}-${variant.color}`.replace(/\s+/g, '-').toLowerCase()
+        })))
+      }
+
+      // Load images
+      if (product.images && Array.isArray(product.images)) {
+        console.log('🖼️ Loading images:', product.images)
+        const productImages = product.images.map((imageUrl: string, index: number) => ({
+          id: `existing-${index}`,
+          url: imageUrl,
+          alt: `${product.name} - Image ${index + 1}`,
+          isPrimary: index === 0,
+          order: index + 1
+        }))
+        setImages(productImages)
+      }
+    }
+  }, [isEditing, product])
+
   // Fetch categories on component mount
   useEffect(() => {
     fetchCategories()
   }, [])
 
-  // Update state when product prop changes (for editing mode)
+  // Set category after categories are loaded (for edit mode)
   useEffect(() => {
-    if (product && isEditing) {
-      setNameEn(product.nameEn || '')
-      setDescriptionEn(product.descriptionEn || '')
-      setCategory(product.category || '')
-      setIsActive(product.isActive ?? true)
-      setVariants(product.variants || [])
-      setImages(product.images || [])
+    if (isEditing && product && categories.length > 0 && product.category_id) {
+      const productCategory = categories.find(cat => cat.id === product.category_id)
+      if (productCategory) {
+        console.log('📂 Setting category:', productCategory.name)
+        setCategory(productCategory.name)
+      }
     }
-  }, [product, isEditing])
+  }, [isEditing, product, categories])
+
+
 
   const fetchCategories = async () => {
     try {
@@ -148,10 +193,25 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
     const file = event.target.files?.[0]
     if (!file) return
 
+    // 验证文件类型
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
+    if (!allowedTypes.includes(file.type)) {
+      alert('Invalid file type. Only JPG, PNG, GIF, and WebP are allowed.')
+      return
+    }
+
+    // 验证文件大小 (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File too large. Maximum size is 5MB.')
+      return
+    }
+
     setUploading(true)
     try {
       const formData = new FormData()
       formData.append('image', file)
+
+      console.log(`🔄 Uploading image: ${file.name} (${file.size} bytes)`)
 
       const response = await fetch('/api/admin/upload-image', {
         method: 'POST',
@@ -159,26 +219,44 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
       })
 
       const result = await response.json()
+      console.log('Upload response:', result)
+
       if (result.success) {
+        // 确保URL格式正确
+        const imageUrl = result.url || result.data?.url
+        console.log('📸 Image URL received:', imageUrl)
+
         const newImage: ProductImage = {
           id: Date.now().toString(),
-          url: result.url,
-          alt: `${nameEn || 'Product'} - ${file.name}`,
+          url: imageUrl,
+          alt: `${nameEn || 'Product'} - ${file.name.replace(/\.[^/.]+$/, '')}`,
           isPrimary: images.length === 0, // First image is primary
           order: images.length + 1
         }
         setImages(prev => {
           const updated = [...prev, newImage]
-          console.log('Images updated:', updated)
+          console.log('✅ Images updated:', updated)
           return updated
         })
-        alert(`Image uploaded successfully! URL: ${result.url}. Total images: ${images.length + 1}`)
+
+        // 验证图片是否可以访问
+        const testImg = new Image()
+        testImg.onload = () => {
+          console.log('✅ Image accessibility verified')
+          alert(`✅ Image uploaded and verified!\nURL: ${imageUrl}\nTotal images: ${images.length + 1}`)
+        }
+        testImg.onerror = () => {
+          console.error('❌ Image uploaded but not accessible')
+          alert(`⚠️ Image uploaded but may not be accessible.\nURL: ${imageUrl}\nPlease check the image display.`)
+        }
+        testImg.src = imageUrl
       } else {
-        alert('Error uploading image: ' + result.error)
+        console.error('❌ Upload failed:', result.error)
+        alert('❌ Error uploading image: ' + result.error)
       }
     } catch (error) {
-      console.error('Error uploading image:', error)
-      alert('Error uploading image')
+      console.error('❌ Error uploading image:', error)
+      alert('❌ Error uploading image. Please try again.')
     } finally {
       setUploading(false)
     }
@@ -217,12 +295,13 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
       // Swap images
       [newImages[currentIndex], newImages[targetIndex]] = [newImages[targetIndex], newImages[currentIndex]]
 
-      // Update order numbers
-      newImages.forEach((img, index) => {
-        img.order = index + 1
-      })
+      // Update order numbers - create new objects to avoid mutation
+      const updatedImages = newImages.map((img, index) => ({
+        ...img,
+        order: index + 1
+      }))
 
-      setImages(newImages)
+      setImages(updatedImages)
     }
   }
 
@@ -258,23 +337,39 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
         }
       })
 
+      // 验证必填字段
+      if (!nameEn.trim()) {
+        alert('Product name is required')
+        return
+      }
+
+      if (variantsForAPI.length === 0) {
+        alert('At least one variant is required')
+        return
+      }
+
+      // 找到选中分类的ID
+      let categoryId = null
+      if (category.trim()) {
+        const selectedCategory = categories.find(cat => cat.name === category.trim())
+        categoryId = selectedCategory?.id || null
+      }
+
+      // 统一使用 Supabase API 格式
       const productData = {
-        nameEn: nameEn.trim(),
-        descriptionEn: descriptionEn.trim(),
-        category: category.trim(),
-        isActive,
+        name: nameEn.trim(),
+        description: descriptionEn.trim(),
+        price: variantsForAPI.length > 0 ? Math.min(...variantsForAPI.map(v => v.price)) : 0,
+        category_id: categoryId,
         variants: variantsForAPI,
-        tags: [],
-        images: images,
-        seoTitle: '',
-        seoDescription: '',
-        seoKeywords: []
+        images: images.map(img => img.url),
+        is_active: isActive
       }
 
       console.log('Saving product with', variantsForAPI.length, 'variants')
 
       const url = isEditing
-        ? `/api/admin/products/${product?.id}/update-all`
+        ? `/api/admin/products/${product?.id}`
         : '/api/admin/products'
 
       const method = isEditing ? 'PUT' : 'POST'
@@ -332,7 +427,7 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
               placeholder="Enter product name"
             />
           </div>
-          
+
           <div>
             <Label>Description (English)</Label>
             <Textarea
@@ -342,7 +437,7 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
               rows={3}
             />
           </div>
-          
+
           <div>
             <Label>Category</Label>
             <select
@@ -356,11 +451,9 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
                   {cat.name}
                 </option>
               ))}
-              {/* Add existing categories from your products */}
-              <option value="test">Test</option>
             </select>
           </div>
-          
+
           <div className="flex space-x-4">
             <label className="flex items-center space-x-2">
               <input

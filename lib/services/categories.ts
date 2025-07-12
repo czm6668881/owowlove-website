@@ -120,9 +120,54 @@ export class CategoryService {
     }
   }
 
-  // Admin: Delete category
-  static async deleteCategory(id: string): Promise<void> {
+  // Admin: Check if category has products
+  static async getCategoryProductCount(id: string): Promise<number> {
     try {
+      const { count, error } = await supabaseAdmin
+        .from('products')
+        .select('*', { count: 'exact', head: true })
+        .eq('category_id', id)
+
+      if (error) {
+        console.error('Error checking category products:', error)
+        throw error
+      }
+
+      return count || 0
+    } catch (error) {
+      console.error('CategoryService.getCategoryProductCount error:', error)
+      throw error
+    }
+  }
+
+  // Admin: Delete category (with product check)
+  static async deleteCategory(id: string, force: boolean = false): Promise<{ success: boolean; message: string; productCount?: number }> {
+    try {
+      // First check if category has products
+      const productCount = await this.getCategoryProductCount(id)
+
+      if (productCount > 0 && !force) {
+        return {
+          success: false,
+          message: `Cannot delete category. It has ${productCount} product(s) associated with it.`,
+          productCount
+        }
+      }
+
+      // If force delete, first update products to remove category reference
+      if (force && productCount > 0) {
+        const { error: updateError } = await supabaseAdmin
+          .from('products')
+          .update({ category_id: null })
+          .eq('category_id', id)
+
+        if (updateError) {
+          console.error('Error updating products before category deletion:', updateError)
+          throw updateError
+        }
+      }
+
+      // Now delete the category
       const { error } = await supabaseAdmin
         .from('categories')
         .delete()
@@ -131,6 +176,13 @@ export class CategoryService {
       if (error) {
         console.error('Error deleting category:', error)
         throw error
+      }
+
+      return {
+        success: true,
+        message: force && productCount > 0
+          ? `Category deleted successfully. ${productCount} product(s) were moved to uncategorized.`
+          : 'Category deleted successfully.'
       }
     } catch (error) {
       console.error('CategoryService.deleteCategory error:', error)

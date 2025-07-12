@@ -21,6 +21,7 @@ import { useFavorites } from '@/contexts/favorites-context'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { CategoryNavigation } from '@/components/category-navigation'
+import { ProductListImage } from '@/components/product/product-image'
 
 
 interface FrontendProduct {
@@ -28,7 +29,13 @@ interface FrontendProduct {
   name: string
   description: string
   price: number
-  images: string[]
+  images: string[] | Array<{
+    id: string
+    url: string
+    alt: string
+    isPrimary: boolean
+    order: number
+  }>
   category_id: string
   variants: Array<{
     id: string
@@ -83,19 +90,88 @@ export default function LingerieStore() {
     }
   }
 
+  // 简化过滤逻辑 - 显示所有激活的产品
   const filteredProducts = products.filter((product) => {
-    const productName = (product.name || '').toLowerCase()
-    const productDescription = (product.description || '').toLowerCase()
-    const searchLower = searchQuery.toLowerCase()
-    const matchesSearch = productName.includes(searchLower) || productDescription.includes(searchLower)
-    const matchesSize = filterSize === "all" || product.variants.some(v => v.size === filterSize)
-    const matchesColor = filterColor === "all" || product.variants.some(v => (v.color || '').toLowerCase().includes(filterColor.toLowerCase()))
-    return matchesSearch && matchesSize && matchesColor
+    return product && product.is_active === true
   })
 
   // 获取产品的主图片
   const getProductImage = (product: FrontendProduct): string => {
-    return product.images[0] || '/placeholder.svg'
+    if (!product.images || product.images.length === 0) {
+      return '/placeholder.svg'
+    }
+
+    // 检查是否为字符串数组格式（Supabase格式）
+    if (typeof product.images[0] === 'string') {
+      let imageUrl = product.images[0] as string
+
+      // 处理损坏的JSON数据
+      if (imageUrl.includes('"url":')) {
+        try {
+          const urlMatch = imageUrl.match(/"url":"([^"]+)"/);
+          if (urlMatch) {
+            imageUrl = urlMatch[1]
+          }
+        } catch (e) {
+          console.error('Failed to extract URL from corrupted data:', e)
+          return '/placeholder.svg'
+        }
+      }
+
+      // 清理URL - 移除所有异常字符
+      imageUrl = imageUrl
+        .trim()                                    // 移除首尾空格
+        .replace(/['"(){}[\]]/g, '')              // 移除引号和括号
+        .replace(/\s+/g, '')                      // 移除所有空格
+        .replace(/\0/g, '')                       // 移除null字符
+
+      // 移除文件扩展名后的多余字符（如 .jpeg1 -> .jpeg）
+      imageUrl = imageUrl.replace(/(\.(jpg|jpeg|png|gif|webp))[^a-zA-Z]*$/i, '$1')
+
+      // 环境感知的URL格式处理
+      if (!imageUrl.startsWith('http')) {
+        let filename = ''
+
+        // 提取文件名
+        if (imageUrl.startsWith('/uploads/') || imageUrl.startsWith('/product-images/')) {
+          filename = imageUrl.split('/').pop() || ''
+        } else if (!imageUrl.startsWith('/')) {
+          filename = imageUrl
+        } else {
+          filename = imageUrl.split('/').pop() || ''
+        }
+
+        // 确保文件名有效
+        if (filename) {
+          // 多种URL格式尝试（按优先级）
+          // 主要使用API路由，但为生产环境提供备用方案
+          imageUrl = `/api/image/${filename}`
+        } else {
+          console.warn('Could not extract filename from image URL:', imageUrl)
+          return '/placeholder.svg'
+        }
+      }
+
+      return imageUrl
+    }
+
+    // 检查是否为对象数组格式（文件系统格式）
+    const imageObjects = product.images as Array<{
+      id: string
+      url: string
+      alt: string
+      isPrimary: boolean
+      order: number
+    }>
+
+    // 优先返回主图片
+    const primaryImage = imageObjects.find(img => img.isPrimary)
+    if (primaryImage) {
+      return primaryImage.url
+    }
+
+    // 如果没有主图片，返回第一张图片
+    return imageObjects[0]?.url || '/placeholder.svg'
   }
 
   // 获取产品价格范围
@@ -212,16 +288,29 @@ export default function LingerieStore() {
               </div>
             </div>
 
+
+
+
+
             {/* Product Grid */}
             <div className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {loading ? (
                 <div className="col-span-full text-center py-12">
                   <div className="text-gray-500">Loading products...</div>
                 </div>
+              ) : filteredProducts.length === 0 ? (
+                <div className="col-span-full text-center py-12">
+                  <div className="text-gray-500">No products found</div>
+                  <p className="text-sm text-gray-400 mt-2">
+                    Total products: {products.length}, Filtered: {filteredProducts.length}
+                  </p>
+                </div>
               ) : filteredProducts.map((product) => {
                 const { minPrice, maxPrice } = getProductPriceRange(product)
                 const { sizes, colors } = getProductOptions(product)
                 const productImage = getProductImage(product)
+
+
 
                 return (
                 <Card key={product.id} className="group hover:shadow-lg transition-shadow">
@@ -231,6 +320,32 @@ export default function LingerieStore() {
                         src={productImage}
                         alt={product.name}
                         className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-300"
+                        onLoad={() => {
+                          console.log(`✅ Image loaded successfully: ${productImage}`)
+                        }}
+                        onError={(e) => {
+                          console.error(`❌ Image failed to load: ${productImage}`)
+                          console.error(`   Product: ${product.name}`)
+                          console.error(`   Original images:`, product.images)
+
+                          // 尝试备用URL格式
+                          const currentSrc = e.currentTarget.src
+                          const filename = productImage.split('/').pop()
+
+                          if (currentSrc.includes('/api/image/') && filename) {
+                            // 如果API路由失败，尝试直接文件访问
+                            console.log(`🔄 Trying fallback URL: /uploads/${filename}`)
+                            e.currentTarget.src = `/uploads/${filename}`
+                          } else if (currentSrc.includes('/uploads/') && filename) {
+                            // 如果直接访问失败，尝试备用API路由
+                            console.log(`🔄 Trying fallback URL: /api/uploads/${filename}`)
+                            e.currentTarget.src = `/api/uploads/${filename}`
+                          } else {
+                            // 所有尝试都失败，使用占位符
+                            console.log(`🔄 All attempts failed, using placeholder`)
+                            e.currentTarget.src = '/placeholder.svg'
+                          }
+                        }}
                       />
 
                       <FavoriteButton

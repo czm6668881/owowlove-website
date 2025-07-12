@@ -6,20 +6,21 @@ import { existsSync } from 'fs'
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
-    const file = formData.get('file') as File
-    
+    // 支持两种字段名：'file' 和 'image'
+    const file = formData.get('file') as File || formData.get('image') as File
+
     if (!file) {
       return NextResponse.json(
-        { success: false, error: 'No file uploaded' },
+        { success: false, error: 'No file uploaded. Please select an image file.' },
         { status: 400 }
       )
     }
 
     // 验证文件类型
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(
-        { success: false, error: 'Invalid file type. Only JPEG, PNG, and WebP are allowed.' },
+        { success: false, error: 'Invalid file type. Only JPG, PNG, GIF, and WebP are allowed.' },
         { status: 400 }
       )
     }
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    // 创建上传目录
+    // 创建产品图片目录
     const uploadDir = join(process.cwd(), 'public', 'product-images')
     if (!existsSync(uploadDir)) {
       await mkdir(uploadDir, { recursive: true })
@@ -44,18 +45,24 @@ export async function POST(request: NextRequest) {
 
     // 生成唯一文件名
     const timestamp = Date.now()
-    const extension = file.name.split('.').pop()
+    const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
     const filename = `product-${timestamp}.${extension}`
     const filepath = join(uploadDir, filename)
 
     // 保存文件
     await writeFile(filepath, buffer)
 
-    // 返回文件URL
+    // 返回统一的API路径
     const fileUrl = `/api/image/${filename}`
-    
+
+    console.log(`✅ Image uploaded successfully: ${filename} (${file.size} bytes)`)
+    console.log(`📁 Saved to: ${filepath}`)
+    console.log(`🔗 URL: ${fileUrl}`)
+
     return NextResponse.json({
       success: true,
+      url: fileUrl, // 为了兼容性，同时提供 url 和 data.url
+      filename: filename,
       data: {
         url: fileUrl,
         filename: filename,
@@ -65,9 +72,9 @@ export async function POST(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Error uploading file:', error)
+    console.error('❌ Error uploading file:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to upload file' },
+      { success: false, error: 'Failed to upload file. Please try again.' },
       { status: 500 }
     )
   }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { ProductService } from '@/lib/data/products'
+import { ProductService } from '@/lib/services/products'
 import { UpdateProductRequest } from '@/lib/types/product'
 
 type Props = {
@@ -9,8 +9,10 @@ type Props = {
 export async function GET(request: NextRequest, { params }: Props) {
   try {
     const resolvedParams = await params
+    console.log('🔍 Getting product by ID:', resolvedParams.id)
+
     const product = await ProductService.getProductById(resolvedParams.id)
-    
+
     if (!product) {
       return NextResponse.json(
         { success: false, error: 'Product not found' },
@@ -18,8 +20,10 @@ export async function GET(request: NextRequest, { params }: Props) {
       )
     }
 
+    console.log('✅ Product found:', product.name)
     return NextResponse.json({ success: true, data: product })
   } catch (error) {
+    console.error('❌ Error fetching product:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to fetch product' },
       { status: 500 }
@@ -54,20 +58,16 @@ export async function PUT(request: NextRequest, { params }: Props) {
 export async function DELETE(request: NextRequest, { params }: Props) {
   try {
     const resolvedParams = await params
-    const success = await ProductService.deleteProduct(resolvedParams.id)
+    console.log('🗑️ Deleting product:', resolvedParams.id)
 
-    if (!success) {
-      return NextResponse.json(
-        { success: false, error: 'Product not found' },
-        { status: 404 }
-      )
-    }
+    await ProductService.deleteProduct(resolvedParams.id)
+    console.log('✅ Product deleted successfully')
 
     return NextResponse.json({ success: true, message: 'Product deleted successfully' })
   } catch (error) {
-    console.error('Delete API error:', error)
+    console.error('❌ Delete API error:', error)
     return NextResponse.json(
-      { success: false, error: 'Failed to delete product' },
+      { success: false, error: 'Failed to delete product: ' + (error as Error).message },
       { status: 500 }
     )
   }
