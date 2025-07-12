@@ -208,18 +208,27 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
 
     setUploading(true)
     try {
+      console.log(`🔄 Starting upload process for: ${file.name} (${file.size} bytes, ${file.type})`)
+
       const formData = new FormData()
       formData.append('image', file)
+      console.log('✅ FormData created and file appended')
 
-      console.log(`🔄 Uploading image: ${file.name} (${file.size} bytes)`)
-
+      console.log(`📤 Sending request to /api/admin/upload-image...`)
       const response = await fetch('/api/admin/upload-image', {
         method: 'POST',
         body: formData,
       })
+      console.log(`📊 Response received: ${response.status} ${response.statusText}`)
 
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      }
+
+      console.log('🔄 Parsing JSON response...')
       const result = await response.json()
-      console.log('Upload response:', result)
+      console.log('✅ JSON parsed successfully')
+      console.log('📋 Upload response:', result)
 
       if (result.success) {
         // 确保URL格式正确
@@ -256,7 +265,19 @@ export function NewProductForm({ product, isEditing = false, lang }: NewProductF
       }
     } catch (error) {
       console.error('❌ Error uploading image:', error)
-      alert('❌ Error uploading image. Please try again.')
+      console.error('❌ Error type:', typeof error)
+      console.error('❌ Error name:', error?.name)
+      console.error('❌ Error message:', error?.message)
+      console.error('❌ Error stack:', error?.stack)
+
+      let errorMessage = 'Error uploading image. Please try again.'
+      if (error instanceof Error) {
+        errorMessage = `Error uploading image: ${error.message}`
+      } else if (typeof error === 'string') {
+        errorMessage = `Error uploading image: ${error}`
+      }
+
+      alert(`❌ ${errorMessage}`)
     } finally {
       setUploading(false)
     }

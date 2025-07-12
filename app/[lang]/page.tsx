@@ -143,8 +143,7 @@ export default function LingerieStore() {
 
         // 确保文件名有效
         if (filename) {
-          // 多种URL格式尝试（按优先级）
-          // 主要使用API路由，但为生产环境提供备用方案
+          // 生产环境优化：使用API路由，它会自动处理备用方案
           imageUrl = `/api/image/${filename}`
         } else {
           console.warn('Could not extract filename from image URL:', imageUrl)
@@ -176,6 +175,11 @@ export default function LingerieStore() {
 
   // 获取产品价格范围
   const getProductPriceRange = (product: FrontendProduct) => {
+    // 如果没有variants，使用产品的基础价格
+    if (!product.variants || product.variants.length === 0) {
+      return { minPrice: product.price, maxPrice: product.price }
+    }
+
     const prices = product.variants.map(v => v.price)
     const minPrice = Math.min(...prices)
     const maxPrice = Math.max(...prices)
@@ -184,6 +188,11 @@ export default function LingerieStore() {
 
   // 获取产品的尺寸和颜色
   const getProductOptions = (product: FrontendProduct) => {
+    // 如果没有variants，返回默认选项
+    if (!product.variants || product.variants.length === 0) {
+      return { sizes: ['One Size'], colors: ['Default'] }
+    }
+
     const sizes = [...new Set(product.variants.map(v => v.size))]
     const colors = [...new Set(product.variants.map(v => v.color))]
     return { sizes, colors }
@@ -306,13 +315,17 @@ export default function LingerieStore() {
                   </p>
                 </div>
               ) : filteredProducts.map((product) => {
-                const { minPrice, maxPrice } = getProductPriceRange(product)
-                const { sizes, colors } = getProductOptions(product)
-                const productImage = getProductImage(product)
+                try {
+                  const { minPrice, maxPrice } = getProductPriceRange(product)
+                  const { sizes, colors } = getProductOptions(product)
+                  const productImage = getProductImage(product)
 
+                  console.log(`🔍 Rendering product: ${product.name}`)
+                  console.log(`   Image URL: ${productImage}`)
+                  console.log(`   Price range: $${minPrice} - $${maxPrice}`)
+                  console.log(`   Variants: ${product.variants?.length || 0}`)
 
-
-                return (
+                  return (
                 <Card key={product.id} className="group hover:shadow-lg transition-shadow">
                   <CardContent className="p-0">
                     <div className="relative overflow-hidden">
@@ -436,7 +449,20 @@ export default function LingerieStore() {
                     </div>
                   </CardContent>
                 </Card>
-                )
+                  )
+                } catch (error) {
+                  console.error(`❌ Error rendering product ${product.name}:`, error)
+                  return (
+                    <Card key={product.id} className="border-red-200">
+                      <CardContent className="p-4">
+                        <div className="text-red-600">
+                          <p className="font-medium">Error loading product: {product.name}</p>
+                          <p className="text-sm">Please check console for details</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                }
               })}
             </div>
 

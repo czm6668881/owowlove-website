@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    // 创建产品图片目录
-    const uploadDir = join(process.cwd(), 'public', 'product-images')
+    // 创建产品图片目录 - 统一使用 uploads 目录
+    const uploadDir = join(process.cwd(), 'public', 'uploads')
     if (!existsSync(uploadDir)) {
       await mkdir(uploadDir, { recursive: true })
     }
@@ -73,9 +73,32 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('❌ Error uploading file:', error)
-    return NextResponse.json(
-      { success: false, error: 'Failed to upload file. Please try again.' },
-      { status: 500 }
-    )
+    console.error('❌ Error details:', {
+      message: error.message,
+      stack: error.stack,
+      name: error.name
+    })
+
+    // 提供更详细的错误信息
+    let errorMessage = 'Failed to upload file. Please try again.'
+    if (error.code === 'ENOENT') {
+      errorMessage = 'Upload directory not found. Please contact administrator.'
+    } else if (error.code === 'EACCES') {
+      errorMessage = 'Permission denied. Please contact administrator.'
+    } else if (error.code === 'ENOSPC') {
+      errorMessage = 'Not enough disk space. Please contact administrator.'
+    } else if (error.message) {
+      errorMessage = `Upload failed: ${error.message}`
+    }
+
+    return NextResponse.json({
+      success: false,
+      error: errorMessage,
+      debug: process.env.NODE_ENV === 'development' ? {
+        message: error.message,
+        code: error.code,
+        stack: error.stack
+      } : undefined
+    }, { status: 500 })
   }
 }
