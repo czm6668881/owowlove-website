@@ -20,7 +20,7 @@ import { FavoriteButton } from '@/components/favorites/favorite-button'
 import { useFavorites } from '@/contexts/favorites-context'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
-import { CategoryNavigation } from '@/components/category-navigation'
+
 import { ProductListImage } from '@/components/product/product-image'
 
 
@@ -209,9 +209,6 @@ export default function LingerieStore() {
           <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8">{t('hero.subtitle')}</p>
         </div>
       </section>
-
-      {/* Category Navigation */}
-      <CategoryNavigation />
 
       <div className="container mx-auto px-4 py-6 md:py-8">
         <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
