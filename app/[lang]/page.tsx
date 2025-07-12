@@ -370,6 +370,20 @@ export default function LingerieStore() {
                     <div className="p-3 md:p-4">
                       <h3 className="font-medium text-gray-900 mb-2 text-sm md:text-base">{product.name}</h3>
 
+                      {/* 产品描述 */}
+                      {product.description && product.description.trim() && (
+                        <p className="text-xs md:text-sm text-gray-600 mb-2 overflow-hidden"
+                           style={{
+                             display: '-webkit-box',
+                             WebkitLineClamp: 2,
+                             WebkitBoxOrient: 'vertical',
+                             lineHeight: '1.4em',
+                             maxHeight: '2.8em'
+                           }}>
+                          {product.description}
+                        </p>
+                      )}
+
                       <div className="flex items-center mb-2">
                         <div className="flex items-center">
                           {[...Array(5)].map((_, i) => (
