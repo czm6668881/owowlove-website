@@ -193,7 +193,10 @@ async function loadImageFromMapping(filename: string): Promise<NextResponse | nu
     }
 
     const mappingData = await readFile(mappingPath, 'utf-8')
-    const imageMapping = JSON.parse(mappingData)
+    const mappingFile = JSON.parse(mappingData)
+
+    // 检查新的映射文件格式
+    const imageMapping = mappingFile.images || mappingFile
 
     if (!imageMapping[filename]) {
       console.log(`❌ Image not found in mapping: ${filename}`)
@@ -208,7 +211,7 @@ async function loadImageFromMapping(filename: string): Promise<NextResponse | nu
 
     return new NextResponse(buffer, {
       headers: {
-        'Content-Type': imageData.mimeType,
+        'Content-Type': imageData.mimeType || imageData.mime_type || 'image/jpeg',
         'Cache-Control': 'public, max-age=3600',
         'Access-Control-Allow-Origin': '*',
       },
