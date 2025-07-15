@@ -45,9 +45,26 @@ export function ProductImage({
       }
     }
 
-    // 如果已经是完整的URL，直接返回
+    // 清理URL - 移除所有异常字符
+    url = url
+      .trim()                                    // 移除首尾空格
+      .replace(/['"(){}[\]]/g, '')              // 移除引号和括号
+      .replace(/\s+/g, '')                      // 移除所有空格
+      .replace(/\0/g, '')                       // 移除null字符
+
+    // 移除文件扩展名后的多余字符（如 .jpeg1 -> .jpeg）
+    url = url.replace(/(\.(jpg|jpeg|png|gif|webp))[^a-zA-Z]*$/i, '$1')
+
+    // 如果是完整的域名URL，提取文件名并转换为API路径
     if (url.startsWith('http://') || url.startsWith('https://')) {
-      return url
+      const filename = url.split('/').pop() || ''
+      if (filename) {
+        console.log(`🔧 Converting domain URL to API path: ${url} -> /api/image/${filename}`)
+        return `/api/image/${filename}`
+      } else {
+        console.warn('Could not extract filename from domain URL:', url)
+        return '/placeholder.svg'
+      }
     }
 
     // 如果是API路径，直接返回

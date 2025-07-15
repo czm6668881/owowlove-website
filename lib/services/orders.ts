@@ -7,15 +7,23 @@ export interface OrderItem {
   price: number
 }
 
+export interface GuestInfo {
+  first_name: string
+  last_name: string
+  email: string
+  phone: string
+}
+
 export interface Order {
   id: string
-  user_id: string
+  user_id?: string | null
   items: OrderItem[]
   total_amount: number
   status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
   shipping_address: string
   payment_method: string
   payment_status: 'pending' | 'paid' | 'failed'
+  guest_info?: GuestInfo | null
   created_at: string
   updated_at: string
 }
@@ -88,21 +96,23 @@ export class OrderService {
     }
   }
 
-  // Create new order
-  static async createOrder(orderData: Omit<Order, 'id' | 'user_id' | 'created_at' | 'updated_at'>): Promise<Order> {
+  // Create new order (supports both authenticated users and guests)
+  static async createOrder(orderData: Omit<Order, 'id' | 'created_at' | 'updated_at'>): Promise<Order> {
     try {
       const { data: { user } } = await supabase.auth.getUser()
-      
-      if (!user) {
-        throw new Error('User not authenticated')
+
+      // For guest orders, user_id can be null
+      const insertData = {
+        ...orderData,
+        user_id: user?.id || null
       }
 
-      const { data, error } = await supabase
+      // Use admin client for guest orders since they don't have authentication
+      const client = user ? supabase : supabaseAdmin
+
+      const { data, error } = await client
         .from('orders')
-        .insert([{
-          ...orderData,
-          user_id: user.id
-        }])
+        .insert([insertData])
         .select()
         .single()
 

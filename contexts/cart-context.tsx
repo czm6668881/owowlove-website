@@ -46,7 +46,7 @@ function cartReducer(state: any, action: CartAction) {
         // Add new item
         const cartItem: CartItem = {
           ...newItem,
-          id: Date.now().toString(),
+          id: `${newItem.productId}-${newItem.variantId}-${Math.random().toString(36).substr(2, 9)}`,
           quantity: 1
         }
         updatedItems = [...state.cart.items, cartItem]
@@ -145,9 +145,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 // Cart provider
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState)
+  const [isHydrated, setIsHydrated] = React.useState(false)
 
   // Load cart from localStorage on mount
   useEffect(() => {
+    setIsHydrated(true)
     const savedCart = localStorage.getItem('cart')
     if (savedCart) {
       try {
@@ -189,7 +191,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }
 
   const value: CartContextType = {
-    cart: state.cart,
+    cart: isHydrated ? state.cart : { items: [], total: 0, itemCount: 0 },
     addToCart,
     removeFromCart,
     updateQuantity,

@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图片测试页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        .image-test { margin: 10px 0; }
+        img { max-width: 200px; height: 150px; object-fit: cover; border: 1px solid #ddd; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>图片加载测试页面</h1>
+    
+    <div class="test-section">
+        <h2>1. 直接文件访问测试</h2>
+        <div class="image-test">
+            <p>测试: /uploads/product-1752401587935.jpeg</p>
+            <img src="/uploads/product-1752401587935.jpeg" 
+                 onload="this.nextSibling.innerHTML='<span class=success>✅ 加载成功</span>'"
+                 onerror="this.nextSibling.innerHTML='<span class=error>❌ 加载失败</span>'">
+            <span>加载中...</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. API路由测试</h2>
+        <div class="image-test">
+            <p>测试: /api/image/product-1752401587935.jpeg</p>
+            <img src="/api/image/product-1752401587935.jpeg" 
+                 onload="this.nextSibling.innerHTML='<span class=success>✅ 加载成功</span>'"
+                 onerror="this.nextSibling.innerHTML='<span class=error>❌ 加载失败</span>'">
+            <span>加载中...</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. 占位符测试</h2>
+        <div class="image-test">
+            <p>测试: /placeholder.svg</p>
+            <img src="/placeholder.svg" 
+                 onload="this.nextSibling.innerHTML='<span class=success>✅ 加载成功</span>'"
+                 onerror="this.nextSibling.innerHTML='<span class=error>❌ 加载失败</span>'">
+            <span>加载中...</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. 产品API测试</h2>
+        <button onclick="testProductAPI()">测试产品API</button>
+        <div id="api-result">点击按钮测试</div>
+    </div>
+    
+    <script>
+        async function testProductAPI() {
+            const resultDiv = document.getElementById('api-result');
+            resultDiv.innerHTML = '测试中...';
+            
+            try {
+                const response = await fetch('/api/products');
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">✅ API正常</div>
+                        <div>产品数量: ${data.data.length}</div>
+                        <pre>${JSON.stringify(data.data[0], null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ API错误: ${data.error}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ 请求失败: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

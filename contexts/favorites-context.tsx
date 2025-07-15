@@ -33,7 +33,7 @@ function favoritesReducer(state: any, action: FavoritesAction) {
       
       const favoriteItem: FavoriteItem = {
         ...newItem,
-        id: Date.now().toString(),
+        id: `fav-${newItem.productId}-${Math.random().toString(36).substr(2, 9)}`,
         addedAt: new Date().toISOString()
       }
       
@@ -87,9 +87,11 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(undefin
 // Favorites provider
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(favoritesReducer, initialState)
+  const [isHydrated, setIsHydrated] = React.useState(false)
 
   // Load favorites from localStorage on mount
   useEffect(() => {
+    setIsHydrated(true)
     const savedFavorites = localStorage.getItem('favorites')
     if (savedFavorites) {
       try {
@@ -123,12 +125,12 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   }
 
   const value: FavoritesContextType = {
-    favorites: state.favorites,
+    favorites: isHydrated ? state.favorites : [],
     addToFavorites,
     removeFromFavorites,
     isFavorite,
     clearFavorites,
-    favoriteCount: state.favoriteCount
+    favoriteCount: isHydrated ? state.favoriteCount : 0
   }
 
   return (

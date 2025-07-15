@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API测试页面</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background: #fafafa;
+        }
+        .product-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+        .product-info {
+            display: flex;
+            align-items: flex-start;
+        }
+        .product-details {
+            flex: 1;
+        }
+        .error { color: red; }
+        .success { color: green; }
+        .warning { color: orange; }
+        button {
+            background: #007cba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005a87;
+        }
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 API和图片测试页面</h1>
+        
+        <div class="test-section">
+            <h2>1. 产品API测试</h2>
+            <button onclick="testProductAPI()">测试产品API</button>
+            <button onclick="clearResults()">清除结果</button>
+            <div id="api-result">点击按钮开始测试</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. 图片API测试</h2>
+            <button onclick="testImageAPI()">测试图片API</button>
+            <div id="image-result">点击按钮开始测试</div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. 产品展示测试</h2>
+            <div id="products-display">产品将在这里显示</div>
+        </div>
+    </div>
+    
+    <script>
+        let productsData = null;
+        
+        async function testProductAPI() {
+            const resultDiv = document.getElementById('api-result');
+            resultDiv.innerHTML = '<div>🔄 测试中...</div>';
+            
+            try {
+                console.log('🔍 开始测试产品API...');
+                const response = await fetch('/api/products');
+                console.log('📊 响应状态:', response.status);
+                
+                const data = await response.json();
+                console.log('📊 响应数据:', data);
+                
+                if (data.success) {
+                    productsData = data.data;
+                    
+                    let html = `
+                        <div class="success">✅ API调用成功</div>
+                        <div><strong>产品数量:</strong> ${data.data.length}</div>
+                        <div><strong>调试信息:</strong></div>
+                        <pre>${JSON.stringify(data.debug, null, 2)}</pre>
+                        <div><strong>产品列表:</strong></div>
+                    `;
+                    
+                    data.data.forEach((product, index) => {
+                        const activeStatus = product.is_active ? '✅ 激活' : '❌ 未激活';
+                        const imageCount = product.images ? product.images.length : 0;
+                        const variantCount = product.variants ? product.variants.length : 0;
+                        
+                        html += `
+                            <div class="product-card">
+                                <strong>${index + 1}. ${product.name}</strong><br>
+                                ID: ${product.id}<br>
+                                状态: ${activeStatus}<br>
+                                价格: $${product.price || '未设置'}<br>
+                                图片: ${imageCount} 张<br>
+                                变体: ${variantCount} 个<br>
+                                ${product.images && product.images.length > 0 ? 
+                                    `第一张图片: ${typeof product.images[0] === 'string' ? product.images[0] : product.images[0].url}` : 
+                                    '无图片'
+                                }
+                            </div>
+                        `;
+                    });
+                    
+                    resultDiv.innerHTML = html;
+                    
+                    // 自动显示产品
+                    displayProducts();
+                    
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ API错误: ${data.error}</div>`;
+                }
+            } catch (error) {
+                console.error('❌ API测试失败:', error);
+                resultDiv.innerHTML = `<div class="error">❌ 请求失败: ${error.message}</div>`;
+            }
+        }
+        
+        async function testImageAPI() {
+            const resultDiv = document.getElementById('image-result');
+            
+            if (!productsData || productsData.length === 0) {
+                resultDiv.innerHTML = '<div class="warning">⚠️ 请先测试产品API</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div>🔄 测试图片API...</div>';
+            
+            let html = '<div><strong>图片测试结果:</strong></div>';
+            
+            for (let i = 0; i < Math.min(3, productsData.length); i++) {
+                const product = productsData[i];
+                if (product.images && product.images.length > 0) {
+                    const imageUrl = typeof product.images[0] === 'string' ? product.images[0] : product.images[0].url;
+                    
+                    html += `
+                        <div class="product-card">
+                            <strong>${product.name}</strong><br>
+                            图片URL: ${imageUrl}<br>
+                            <img src="${imageUrl}" 
+                                 class="product-image"
+                                 onload="this.nextSibling.innerHTML='<span class=success>✅ 加载成功</span>'"
+                                 onerror="this.nextSibling.innerHTML='<span class=error>❌ 加载失败</span>'">
+                            <span>加载中...</span>
+                        </div>
+                    `;
+                }
+            }
+            
+            resultDiv.innerHTML = html;
+        }
+        
+        function displayProducts() {
+            const displayDiv = document.getElementById('products-display');
+            
+            if (!productsData || productsData.length === 0) {
+                displayDiv.innerHTML = '<div class="warning">⚠️ 没有产品数据</div>';
+                return;
+            }
+            
+            // 过滤激活的产品
+            const activeProducts = productsData.filter(product => product.is_active === true);
+            
+            let html = `<div><strong>激活的产品 (${activeProducts.length}/${productsData.length}):</strong></div>`;
+            
+            if (activeProducts.length === 0) {
+                html += '<div class="error">❌ 没有激活的产品</div>';
+            } else {
+                activeProducts.forEach((product, index) => {
+                    const imageUrl = product.images && product.images.length > 0 
+                        ? (typeof product.images[0] === 'string' ? product.images[0] : product.images[0].url)
+                        : '/placeholder.svg';
+                    
+                    const price = product.price || (product.variants && product.variants.length > 0 ? product.variants[0].price : 29.99);
+                    
+                    html += `
+                        <div class="product-card">
+                            <div class="product-info">
+                                <img src="${imageUrl}" 
+                                     class="product-image"
+                                     onload="console.log('✅ 图片加载成功: ${imageUrl}')"
+                                     onerror="console.error('❌ 图片加载失败: ${imageUrl}'); this.style.border='2px solid red';">
+                                <div class="product-details">
+                                    <h3>${product.name}</h3>
+                                    <p><strong>价格:</strong> $${price}</p>
+                                    <p><strong>描述:</strong> ${product.description || '无描述'}</p>
+                                    <p><strong>图片URL:</strong> ${imageUrl}</p>
+                                    <p><strong>变体数量:</strong> ${product.variants ? product.variants.length : 0}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            displayDiv.innerHTML = html;
+        }
+        
+        function clearResults() {
+            document.getElementById('api-result').innerHTML = '点击按钮开始测试';
+            document.getElementById('image-result').innerHTML = '点击按钮开始测试';
+            document.getElementById('products-display').innerHTML = '产品将在这里显示';
+            productsData = null;
+        }
+        
+        // 页面加载时自动测试
+        window.onload = function() {
+            console.log('🚀 页面加载完成，开始自动测试...');
+            testProductAPI();
+        };
+    </script>
+</body>
+</html>

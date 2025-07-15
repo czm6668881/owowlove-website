@@ -35,6 +35,9 @@ export default function Header() {
               <Link href="/en" className="text-gray-700 hover:text-pink-600 transition-colors">
                 Cosplay
               </Link>
+              <Link href="/en/track-order" className="text-gray-700 hover:text-pink-600 transition-colors">
+                Track Order
+              </Link>
               <Link href="/en/contact" className="text-gray-700 hover:text-pink-600 transition-colors">
                 Contact
               </Link>

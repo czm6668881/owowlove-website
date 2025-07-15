@@ -2,8 +2,11 @@ import type { Metadata } from 'next'
 import '../globals.css'
 import { translations } from '@/lib/translations'
 import { CartProvider } from '@/contexts/cart-context'
+import { FavoritesProvider } from '@/contexts/favorites-context'
 import { SettingsProvider } from '@/contexts/settings-context'
 import { UserAuthProvider } from '@/contexts/user-auth-context'
+import { PaymentProvider } from '@/contexts/payment-context'
+import { StripeProvider } from '@/contexts/stripe-context'
 
 type Props = {
   params: Promise<{ lang: string }>
@@ -46,13 +49,19 @@ export default async function RootLayout({
   return (
     <html lang={resolvedParams.lang}>
       <body>
-        <SettingsProvider>
-          <UserAuthProvider>
-            <CartProvider>
-              {children}
-            </CartProvider>
-          </UserAuthProvider>
-        </SettingsProvider>
+        <FavoritesProvider>
+          <SettingsProvider>
+            <UserAuthProvider>
+              <CartProvider>
+                <PaymentProvider>
+                  <StripeProvider>
+                    {children}
+                  </StripeProvider>
+                </PaymentProvider>
+              </CartProvider>
+            </UserAuthProvider>
+          </SettingsProvider>
+        </FavoritesProvider>
       </body>
     </html>
   )

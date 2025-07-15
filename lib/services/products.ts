@@ -43,6 +43,7 @@ export class ProductService {
           *,
           category:categories(id, name, description, image)
         `)
+        .eq('is_active', true)
         .order('created_at', { ascending: false })
 
       console.log('📊 Raw query result:', { data: data?.length, error })
@@ -52,7 +53,16 @@ export class ProductService {
         throw error
       }
 
-      console.log('✅ Products fetched successfully:', data?.length || 0)
+      console.log('✅ Active products fetched successfully:', data?.length || 0)
+      if (data && data.length > 0) {
+        console.log('📋 First product details:', {
+          id: data[0].id,
+          name: data[0].name,
+          is_active: data[0].is_active,
+          images_count: data[0].images?.length || 0,
+          variants_count: data[0].variants?.length || 0
+        })
+      }
       return data || []
     } catch (error) {
       console.error('💥 ProductService.getProducts error:', error)

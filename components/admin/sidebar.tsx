@@ -14,7 +14,9 @@ import {
   Image,
   Tags,
   MessageSquare,
-  LogOut
+  LogOut,
+  CreditCard,
+  Wallet
 } from 'lucide-react'
 
 const menuItems = [
@@ -32,6 +34,16 @@ const menuItems = [
     title: 'Orders',
     icon: ShoppingBag,
     href: '/admin/orders'
+  },
+  {
+    title: 'Payments',
+    icon: CreditCard,
+    href: '/admin/payments'
+  },
+  {
+    title: 'Payment Methods',
+    icon: Wallet,
+    href: '/admin/payment-methods'
   },
   {
     title: 'Customers',

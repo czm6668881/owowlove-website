@@ -19,7 +19,11 @@
     "health-check:local": "DOMAIN=localhost PROTOCOL=http PORT=3000 node scripts/production-health-check.js",
     "setup:supabase": "node scripts/setup-supabase.js",
     "create:sample-data": "node scripts/create-sample-data.js",
-    "migrate:data": "npx tsx scripts/migrate-data.ts"
+    "migrate:data": "npx tsx scripts/migrate-data.ts",
+    "stripe:install": "npm install stripe @stripe/stripe-js",
+    "stripe:setup": "node scripts/setup-stripe.js",
+    "stripe:check": "node scripts/check-stripe-config.js",
+    "stripe:test": "echo \"Visit http://localhost:3000/stripe-test to test Stripe integration\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -50,6 +54,7 @@
     "@radix-ui/react-toggle": "1.1.1",
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
+    "@stripe/stripe-js": "^2.4.0",
     "@supabase/supabase-js": "^2.50.4",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
@@ -73,6 +78,7 @@
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",
     "sonner": "^1.7.1",
+    "stripe": "^14.25.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.6",

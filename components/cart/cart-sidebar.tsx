@@ -1,15 +1,44 @@
 'use client'
 
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useCart } from '@/contexts/cart-context'
+import { useUserAuth } from '@/contexts/user-auth-context'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { X, Plus, Minus, ShoppingBag } from 'lucide-react'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { X, Plus, Minus, ShoppingBag, CreditCard, AlertCircle } from 'lucide-react'
 import Image from 'next/image'
 
 export function CartSidebar() {
+  const router = useRouter()
   const { cart, isOpen, closeCart, updateQuantity, removeFromCart } = useCart()
+  const { user } = useUserAuth()
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false)
+  const [error, setError] = useState<string>('')
 
   if (!isOpen) return null
+
+  const handleCheckout = async () => {
+    if (cart.items.length === 0) {
+      setError('购物车为空')
+      return
+    }
+
+    try {
+      setIsCreatingOrder(true)
+      setError('')
+
+      // Close cart and navigate to checkout page
+      closeCart()
+      router.push('/checkout')
+    } catch (error) {
+      console.error('Checkout error:', error)
+      setError('结账过程中发生错误，请重试')
+    } finally {
+      setIsCreatingOrder(false)
+    }
+  }
 
   return (
     <>
@@ -115,15 +144,29 @@ export function CartSidebar() {
           <div className="border-t p-4 space-y-4">
             <div className="flex items-center justify-between text-lg font-semibold">
               <span>Total:</span>
-              <span>${cart.total.toFixed(2)}</span>
+              <span>¥{cart.total.toFixed(2)}</span>
             </div>
-            
+
+            {error && (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
+
+
             <div className="space-y-2">
-              <Button className="w-full bg-pink-600 hover:bg-pink-700">
-                Checkout ({cart.itemCount} items)
+              <Button
+                className="w-full bg-pink-600 hover:bg-pink-700"
+                onClick={handleCheckout}
+                disabled={isCreatingOrder}
+              >
+                <CreditCard className="h-4 w-4 mr-2" />
+                {isCreatingOrder ? '前往结账...' : `结账 (${cart.itemCount} 件商品)`}
               </Button>
               <Button variant="outline" className="w-full" onClick={closeCart}>
-                Continue Shopping
+                继续购物
               </Button>
             </div>
           </div>
