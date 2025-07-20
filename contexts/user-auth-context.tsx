@@ -26,13 +26,19 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
   // 检查认证状态
   const checkAuth = async () => {
     try {
+      // 确保只在客户端执行
+      if (typeof window === 'undefined') {
+        setIsLoading(false)
+        return
+      }
+
       const token = localStorage.getItem('user_token')
 
       if (!token) {
         setIsAuthenticated(false)
         setUser(null)
         setIsLoading(false)
-        
+
         // 如果是受保护的路由，重定向到登录页
         if (isProtectedRoute(pathname)) {
           router.push('/en/login')
@@ -67,8 +73,12 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
       console.error('Auth check failed:', error)
       setIsAuthenticated(false)
       setUser(null)
-      localStorage.removeItem('user_token')
-      
+
+      // 确保只在客户端执行
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('user_token')
+      }
+
       // 如果是受保护的路由，重定向到登录页
       if (isProtectedRoute(pathname)) {
         router.push('/en/login')
@@ -92,7 +102,10 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
       const data = await response.json()
 
       if (data.success && data.token && data.user) {
-        localStorage.setItem('user_token', data.token)
+        // 确保只在客户端执行
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('user_token', data.token)
+        }
         setIsAuthenticated(true)
         setUser(data.user)
         return true
@@ -119,7 +132,10 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
       const data = await response.json()
 
       if (data.success && data.token && data.user) {
-        localStorage.setItem('user_token', data.token)
+        // 确保只在客户端执行
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('user_token', data.token)
+        }
         setIsAuthenticated(true)
         setUser(data.user)
         return true
@@ -134,7 +150,10 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
 
   // 登出
   const logout = () => {
-    localStorage.removeItem('user_token')
+    // 确保只在客户端执行
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user_token')
+    }
     setIsAuthenticated(false)
     setUser(null)
     router.push('/')
@@ -143,6 +162,9 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
   // 更新用户信息
   const updateUser = async (updateData: UpdateUserRequest): Promise<boolean> => {
     try {
+      // 确保只在客户端执行
+      if (typeof window === 'undefined') return false
+
       const token = localStorage.getItem('user_token')
       if (!token) return false
 
@@ -172,6 +194,9 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
   // 修改密码
   const changePassword = async (passwordData: ChangePasswordRequest): Promise<boolean> => {
     try {
+      // 确保只在客户端执行
+      if (typeof window === 'undefined') return false
+
       const token = localStorage.getItem('user_token')
       if (!token) return false
 

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import '../globals.css'
 import { translations } from '@/lib/translations'
 import { CartProvider } from '@/contexts/cart-context'
@@ -12,6 +12,11 @@ type Props = {
   params: Promise<{ lang: string }>
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params
   const lang = resolvedParams.lang as keyof typeof translations
@@ -22,7 +27,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: `Shop premium sexy cosplay costumes for women and girls at OWOWLOVE.COM. Discover our exclusive collection of animal costumes, bunny outfits, and fantasy cosplay designs with worldwide shipping.`,
     keywords: 'sexy cosplay, women cosplay, girls costume, animal costume, bunny costume, cosplay outfits, fantasy costumes, women costume, girls outfits, animal outfits',
     robots: 'index, follow',
-    viewport: 'width=device-width, initial-scale=1',
     openGraph: {
       title: `Sexy Cosplay Costumes for Women & Girls | OWOWLOVE.COM - Animal & Bunny Outfits`,
       description: `Shop premium sexy cosplay costumes for women and girls. Exclusive collection of animal costumes and bunny outfits with worldwide shipping.`,

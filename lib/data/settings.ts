@@ -62,7 +62,7 @@ const defaultSettings: AppSettings = {
   store: {
     storeName: 'OWOWLOVE',
     storeDescription: 'Premium sexy cosplay and lingerie collection',
-    storeEmail: 'info@owowlove.com',
+    storeEmail: 'owowlove@163.com',
     storePhone: '+1 (555) 123-4567',
     storeAddress: '123 Fashion Street, New York, NY 10001',
     currency: 'USD',

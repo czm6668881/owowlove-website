@@ -32,6 +32,15 @@ const defaultCategories: Category[] = [
     productCount: 0,
     isActive: true,
     createdAt: '2025-01-01T00:00:00Z'
+  },
+  {
+    id: '3',
+    name: 'animal sexy cosplay',
+    nameEn: 'animal Sexy Cosplay',
+    description: 'Exciting animal-themed sexy cosplay costumes for women and girls. Featuring cat, fox, wolf, and other animal designs with premium quality materials and attention to detail.',
+    productCount: 0,
+    isActive: true,
+    createdAt: '2025-01-01T00:00:00Z'
   }
 ]
 

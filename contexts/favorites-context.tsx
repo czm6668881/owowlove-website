@@ -21,19 +21,19 @@ function favoritesReducer(state: any, action: FavoritesAction) {
   switch (action.type) {
     case 'ADD_TO_FAVORITES': {
       const newItem = action.payload
-      
+
       // Check if item already exists
       const existingItem = state.favorites.find(
         (item: FavoriteItem) => item.productId === newItem.productId
       )
-      
+
       if (existingItem) {
         return state // Don't add duplicates
       }
       
       const favoriteItem: FavoriteItem = {
         ...newItem,
-        id: `fav-${newItem.productId}-${Math.random().toString(36).substr(2, 9)}`,
+        id: `fav-${newItem.productId}`,
         addedAt: new Date().toISOString()
       }
       
@@ -88,32 +88,47 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(undefin
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(favoritesReducer, initialState)
   const [isHydrated, setIsHydrated] = React.useState(false)
+  const [loaded, setLoaded] = React.useState(false)
 
   // Load favorites from localStorage on mount
   useEffect(() => {
-    setIsHydrated(true)
-    const savedFavorites = localStorage.getItem('favorites')
-    if (savedFavorites) {
-      try {
-        const favoriteItems = JSON.parse(savedFavorites)
-        dispatch({ type: 'LOAD_FAVORITES', payload: favoriteItems })
-      } catch (error) {
-        console.error('Error loading favorites from localStorage:', error)
+    if (!loaded) {
+      setIsHydrated(true)
+      setLoaded(true)
+
+      if (typeof window !== 'undefined') {
+        const savedFavorites = localStorage.getItem('favorites')
+        if (savedFavorites) {
+          try {
+            const favoriteItems = JSON.parse(savedFavorites)
+            dispatch({ type: 'LOAD_FAVORITES', payload: favoriteItems })
+          } catch (error) {
+            console.error('Error loading favorites from localStorage:', error)
+          }
+        }
       }
     }
-  }, [])
+  }, [loaded])
 
   // Save favorites to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(state.favorites))
-  }, [state.favorites])
+    if (isHydrated && typeof window !== 'undefined') {
+      localStorage.setItem('favorites', JSON.stringify(state.favorites))
+    }
+  }, [state.favorites, isHydrated])
 
   const addToFavorites = (item: Omit<FavoriteItem, 'id' | 'addedAt'>) => {
-    dispatch({ type: 'ADD_TO_FAVORITES', payload: item })
+    // Only add if we're on the client side to avoid hydration issues
+    if (isHydrated) {
+      dispatch({ type: 'ADD_TO_FAVORITES', payload: item })
+    }
   }
 
   const removeFromFavorites = (productId: string) => {
-    dispatch({ type: 'REMOVE_FROM_FAVORITES', payload: productId })
+    // Only remove if we're on the client side to avoid hydration issues
+    if (isHydrated) {
+      dispatch({ type: 'REMOVE_FROM_FAVORITES', payload: productId })
+    }
   }
 
   const isFavorite = (productId: string) => {
@@ -121,16 +136,19 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   }
 
   const clearFavorites = () => {
-    dispatch({ type: 'CLEAR_FAVORITES' })
+    // Only clear if we're on the client side to avoid hydration issues
+    if (isHydrated) {
+      dispatch({ type: 'CLEAR_FAVORITES' })
+    }
   }
 
   const value: FavoritesContextType = {
-    favorites: isHydrated ? state.favorites : [],
+    favorites: state.favorites,
     addToFavorites,
     removeFromFavorites,
     isFavorite,
     clearFavorites,
-    favoriteCount: isHydrated ? state.favoriteCount : 0
+    favoriteCount: state.favoriteCount
   }
 
   return (

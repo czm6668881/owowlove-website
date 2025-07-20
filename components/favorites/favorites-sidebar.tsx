@@ -64,14 +64,6 @@ export function FavoritesSidebar({ isOpen, onClose }: FavoritesSidebarProps) {
             <Badge variant="secondary">{favoriteCount}</Badge>
           </div>
           <div className="flex items-center space-x-1 md:space-x-2">
-            {favoriteCount > 0 && (
-              <Link href="/en/favorites">
-                <Button variant="ghost" size="sm" className="text-xs hidden sm:flex">
-                  <ExternalLink className="w-3 h-3 mr-1" />
-                  View All
-                </Button>
-              </Link>
-            )}
             <Button variant="ghost" size="icon" onClick={onClose}>
               <X className="w-4 h-4" />
             </Button>

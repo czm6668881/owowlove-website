@@ -47,13 +47,34 @@ export default function MainPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
+  const [showFavorites, setShowFavorites] = useState(false)
+  const [categories, setCategories] = useState<any[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
   
   const { cart, addToCart, openCart } = useCart()
-  const { addToFavorites, isFavorite } = useFavorites()
+  const { addToFavorites, removeFromFavorites, isFavorite, favorites } = useFavorites()
 
   // 客户端挂载检查
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  // 获取类别数据
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/categories')
+        const data = await response.json()
+
+        if (data.success) {
+          setCategories(data.data || [])
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      }
+    }
+
+    fetchCategories()
   }, [])
 
   // 获取产品数据
@@ -143,13 +164,25 @@ export default function MainPage() {
     })
   }
 
-  const handleAddToFavorites = (product: Product) => {
-    addToFavorites({
-      productId: product.id,
-      productName: product.name,
-      productImage: product.image,
-      price: product.price
-    })
+  // 筛选产品
+  const filteredProducts = selectedCategory === 'all'
+    ? products
+    : products.filter(product => product.category === selectedCategory)
+
+  const handleToggleFavorite = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (isFavorite(product.id)) {
+      removeFromFavorites(product.id)
+    } else {
+      addToFavorites({
+        productId: product.id,
+        productName: product.name,
+        productImage: product.image,
+        price: product.price
+      })
+    }
   }
 
   const handleRetry = () => {
@@ -169,7 +202,7 @@ export default function MainPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <Header onOpenFavorites={() => setShowFavorites(true)} />
 
       {/* 主要内容 */}
       <main className="container mx-auto px-4 py-8">
@@ -225,10 +258,33 @@ export default function MainPage() {
             )}
           </div>
 
+          {/* 类别选择器 */}
+          {categories.length > 0 && (
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+              <Button
+                variant={selectedCategory === 'all' ? 'default' : 'outline'}
+                onClick={() => setSelectedCategory('all')}
+                className="text-sm"
+              >
+                All Categories
+              </Button>
+              {categories.map((category) => (
+                <Button
+                  key={category.id}
+                  variant={selectedCategory === category.id ? 'default' : 'outline'}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className="text-sm"
+                >
+                  {category.name}
+                </Button>
+              ))}
+            </div>
+          )}
+
           {/* 产品网格 */}
-          {products.length > 0 && (
+          {filteredProducts.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <Card key={product.id} className="group hover:shadow-lg transition-shadow">
                   <div className="aspect-square overflow-hidden rounded-t-lg relative">
                     <img
@@ -242,10 +298,15 @@ export default function MainPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                      onClick={() => handleAddToFavorites(product)}
+                      className="absolute top-2 right-2 bg-white/80 hover:bg-white transition-colors"
+                      onClick={(e) => handleToggleFavorite(e, product)}
+                      title={mounted && isFavorite(product.id) ? 'Remove from favorites' : 'Add to favorites'}
                     >
-                      <Heart className={`h-4 w-4 ${isFavorite(product.id) ? 'fill-red-500 text-red-500' : ''}`} />
+                      <Heart className={`h-4 w-4 transition-colors ${
+                        mounted && isFavorite(product.id)
+                          ? 'fill-pink-600 text-pink-600'
+                          : 'text-gray-400 hover:text-pink-600'
+                      }`} />
                     </Button>
                   </div>
                   <CardContent className="p-4">
@@ -293,7 +354,7 @@ export default function MainPage() {
 
       <Footer />
       <CartSidebar />
-      <FavoritesSidebar />
+      <FavoritesSidebar isOpen={showFavorites} onClose={() => setShowFavorites(false)} />
     </div>
   )
 }

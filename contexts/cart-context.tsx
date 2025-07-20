@@ -46,7 +46,7 @@ function cartReducer(state: any, action: CartAction) {
         // Add new item
         const cartItem: CartItem = {
           ...newItem,
-          id: `${newItem.productId}-${newItem.variantId}-${Math.random().toString(36).substr(2, 9)}`,
+          id: `${newItem.productId}-${newItem.variantId}`,
           quantity: 1
         }
         updatedItems = [...state.cart.items, cartItem]
@@ -167,7 +167,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [state.cart.items])
 
   const addToCart = (item: Omit<CartItem, 'id' | 'quantity'>) => {
-    dispatch({ type: 'ADD_TO_CART', payload: item })
+    // Only add if we're on the client side to avoid hydration issues
+    if (isHydrated) {
+      dispatch({ type: 'ADD_TO_CART', payload: item })
+    }
   }
 
   const removeFromCart = (itemId: string) => {

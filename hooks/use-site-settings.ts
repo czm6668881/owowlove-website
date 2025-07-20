@@ -10,7 +10,7 @@ export function useSiteSettings() {
     // Store settings
     storeName: settings?.store?.storeName || 'OWOWLOVE',
     storeDescription: settings?.store?.storeDescription || 'Premium sexy cosplay and lingerie collection',
-    storeEmail: settings?.store?.storeEmail || 'info@owowlove.com',
+    storeEmail: settings?.store?.storeEmail || 'owowlove@163.com',
     storePhone: settings?.store?.storePhone || '+1 (555) 123-4567',
     storeAddress: settings?.store?.storeAddress || '123 Fashion Street, New York, NY 10001',
     currency: settings?.store?.currency || 'USD',

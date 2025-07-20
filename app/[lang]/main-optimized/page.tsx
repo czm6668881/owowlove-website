@@ -35,7 +35,7 @@ export default function OptimizedMainPage() {
   const [mounted, setMounted] = useState(false)
   
   const { cart, addToCart, openCart } = useCart()
-  const { addToFavorites, isFavorite } = useFavorites()
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
 
   // 客户端挂载检查
   useEffect(() => {
@@ -118,13 +118,20 @@ export default function OptimizedMainPage() {
     })
   }
 
-  const handleAddToFavorites = (product: Product) => {
-    addToFavorites({
-      productId: product.id,
-      productName: product.name,
-      productImage: product.image,
-      price: product.price
-    })
+  const handleToggleFavorite = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (isFavorite(product.id)) {
+      removeFromFavorites(product.id)
+    } else {
+      addToFavorites({
+        productId: product.id,
+        productName: product.name,
+        productImage: product.image,
+        price: product.price
+      })
+    }
   }
 
   const handleRetry = () => {
@@ -260,10 +267,15 @@ export default function OptimizedMainPage() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute top-2 right-2 bg-white/80 hover:bg-white"
-                      onClick={() => handleAddToFavorites(product)}
+                      className="absolute top-2 right-2 bg-white/80 hover:bg-white transition-colors"
+                      onClick={(e) => handleToggleFavorite(e, product)}
+                      title={isFavorite(product.id) ? 'Remove from favorites' : 'Add to favorites'}
                     >
-                      <Heart className={`h-4 w-4 ${isFavorite(product.id) ? 'fill-red-500 text-red-500' : ''}`} />
+                      <Heart className={`h-4 w-4 transition-colors ${
+                        isFavorite(product.id)
+                          ? 'fill-pink-600 text-pink-600'
+                          : 'text-gray-400 hover:text-pink-600'
+                      }`} />
                     </Button>
                   </div>
                   <CardContent className="p-4">

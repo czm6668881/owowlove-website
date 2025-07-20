@@ -15,7 +15,11 @@ import { useUserAuth } from '@/contexts/user-auth-context'
 import { CartIcon } from '@/components/cart/cart-icon'
 import { FavoritesIcon } from '@/components/favorites/favorites-icon'
 
-export default function Header() {
+interface HeaderProps {
+  onOpenFavorites?: () => void
+}
+
+export default function Header({ onOpenFavorites }: HeaderProps) {
   const { user, isAuthenticated, logout } = useUserAuth()
 
   const handleLogout = () => {
@@ -52,7 +56,7 @@ export default function Header() {
             </Button>
 
             {/* Favorites */}
-            <FavoritesIcon />
+            <FavoritesIcon onClick={onOpenFavorites} />
 
             {/* Shopping Cart */}
             <CartIcon />
