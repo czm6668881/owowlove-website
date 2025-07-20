@@ -21,6 +21,7 @@ import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { CartSidebar } from '@/components/cart/cart-sidebar'
 import { FavoritesSidebar } from '@/components/favorites/favorites-sidebar'
+import { CustomerReviewsSection } from '@/components/customer-reviews/customer-reviews-section'
 
 interface Product {
   id: string
@@ -344,6 +345,9 @@ export default function MainPage() {
 
         </div>
       </main>
+
+      {/* Customer Reviews Section */}
+      <CustomerReviewsSection />
 
       <Footer />
       <CartSidebar />

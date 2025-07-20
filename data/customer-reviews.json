@@ -1,0 +1,138 @@
+[
+  {
+    "id": "review-001",
+    "customerName": "Sarah M.",
+    "customerAvatar": "/placeholder-user.jpg",
+    "productId": "14993a11-b28b-4e73-be65-f4ed528ad91e",
+    "productName": "Egyptian Queen Cat",
+    "rating": 5,
+    "reviewText": "Absolutely love this costume! The quality is amazing and it fits perfectly. Got so many compliments at the party!",
+    "images": [
+      "/uploads/product-1752312776393.jpeg",
+      "/uploads/product-1752080189101.jpeg"
+    ],
+    "purchaseDate": "2024-12-15",
+    "reviewDate": "2024-12-20",
+    "verified": true,
+    "helpful": 12,
+    "size": "M",
+    "color": "Gold",
+    "fit": "true_to_size",
+    "quality": 5,
+    "comfort": 4,
+    "style": 5
+  },
+  {
+    "id": "review-002",
+    "customerName": "Emma L.",
+    "customerAvatar": "/placeholder-user.jpg",
+    "productId": "550e8400-e29b-41d4-a716-446655440002",
+    "productName": "Bunny Girl Outfit",
+    "rating": 4,
+    "reviewText": "Great costume for the price! Material is good quality and shipping was fast. Would definitely buy again.",
+    "images": [
+      "/uploads/product-1752068376427.jpg"
+    ],
+    "purchaseDate": "2024-12-10",
+    "reviewDate": "2024-12-18",
+    "verified": true,
+    "helpful": 8,
+    "size": "S",
+    "color": "Pink",
+    "fit": "true_to_size",
+    "quality": 4,
+    "comfort": 4,
+    "style": 4
+  },
+  {
+    "id": "review-003",
+    "customerName": "Jessica R.",
+    "customerAvatar": "/placeholder-user.jpg",
+    "productId": "14993a11-b28b-4e73-be65-f4ed528ad91e",
+    "productName": "Egyptian Queen Cat",
+    "rating": 5,
+    "reviewText": "Perfect for Halloween! The details are incredible and it's so comfortable to wear all night.",
+    "images": [
+      "/uploads/product-1752401587935.jpeg",
+      "/uploads/product-1752401589832.jpeg",
+      "/uploads/product-1752401591471.jpeg"
+    ],
+    "purchaseDate": "2024-10-25",
+    "reviewDate": "2024-11-02",
+    "verified": true,
+    "helpful": 15,
+    "size": "L",
+    "color": "Black",
+    "fit": "true_to_size",
+    "quality": 5,
+    "comfort": 5,
+    "style": 5
+  },
+  {
+    "id": "review-004",
+    "customerName": "Mia K.",
+    "customerAvatar": "/placeholder-user.jpg",
+    "productId": "550e8400-e29b-41d4-a716-446655440001",
+    "productName": "Sexy Cosplay Outfit",
+    "rating": 4,
+    "reviewText": "Love the design! Fits well and looks exactly like the pictures. Fast delivery too!",
+    "images": [
+      "/uploads/product-1752323073983.jpeg"
+    ],
+    "purchaseDate": "2024-12-05",
+    "reviewDate": "2024-12-12",
+    "verified": true,
+    "helpful": 6,
+    "size": "M",
+    "color": "Red",
+    "fit": "true_to_size",
+    "quality": 4,
+    "comfort": 4,
+    "style": 5
+  },
+  {
+    "id": "review-005",
+    "customerName": "Olivia T.",
+    "customerAvatar": "/placeholder-user.jpg",
+    "productId": "14993a11-b28b-4e73-be65-f4ed528ad91e",
+    "productName": "Egyptian Queen Cat",
+    "rating": 5,
+    "reviewText": "Amazing quality! The fabric is soft and the fit is perfect. Highly recommend!",
+    "images": [
+      "/uploads/product-1752323079432.jpeg",
+      "/uploads/product-1752323082055.jpeg"
+    ],
+    "purchaseDate": "2024-11-20",
+    "reviewDate": "2024-11-28",
+    "verified": true,
+    "helpful": 9,
+    "size": "S",
+    "color": "Purple",
+    "fit": "true_to_size",
+    "quality": 5,
+    "comfort": 5,
+    "style": 5
+  },
+  {
+    "id": "review-006",
+    "customerName": "Sophia W.",
+    "customerAvatar": "/placeholder-user.jpg",
+    "productId": "550e8400-e29b-41d4-a716-446655440002",
+    "productName": "Bunny Girl Outfit",
+    "rating": 4,
+    "reviewText": "Cute and well-made! Perfect for themed parties. The accessories are a nice touch.",
+    "images": [
+      "/uploads/product-1752312465315.jpg"
+    ],
+    "purchaseDate": "2024-12-01",
+    "reviewDate": "2024-12-08",
+    "verified": true,
+    "helpful": 7,
+    "size": "M",
+    "color": "White",
+    "fit": "true_to_size",
+    "quality": 4,
+    "comfort": 4,
+    "style": 4
+  }
+]
