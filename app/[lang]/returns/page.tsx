@@ -76,7 +76,7 @@ export default function ReturnsPage() {
                     <div>
                       <h4 className="font-medium text-gray-900">Contact Us</h4>
                       <p className="text-sm text-gray-600">
-                        Email us at support@owowlove.com with your order number and reason for return.
+                        Email us at owowlove@163.com with your order number and reason for return.
                       </p>
                     </div>
                   </div>
@@ -155,7 +155,7 @@ export default function ReturnsPage() {
                 <div className="space-y-3 text-sm">
                   <div>
                     <p className="font-medium text-gray-900">Email Support</p>
-                    <p className="text-gray-600">support@owowlove.com</p>
+                    <p className="text-gray-600">owowlove@163.com</p>
                   </div>
                   <div>
                     <p className="font-medium text-gray-900">Response Time</p>
