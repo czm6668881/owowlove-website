@@ -87,12 +87,7 @@ export default function Header({ onOpenFavorites }: HeaderProps) {
                       My Orders
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/en/favorites" className="flex items-center">
-                      <Heart className="mr-2 h-4 w-4" />
-                      My Favorites
-                    </Link>
-                  </DropdownMenuItem>
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="text-red-600">
                     <LogOut className="mr-2 h-4 w-4" />

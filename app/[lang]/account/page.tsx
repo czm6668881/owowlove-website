@@ -59,14 +59,7 @@ export default function AccountPage() {
       href: '/en/orders',
       color: 'bg-green-500'
     },
-    {
-      title: 'My Favorites',
-      description: 'View your saved products',
-      icon: Heart,
-      href: '/en/favorites',
-      color: 'bg-pink-500',
-      badge: favorites.length > 0 ? favorites.length : undefined
-    },
+
     {
       title: 'Shopping Cart',
       description: 'Complete your pending purchases',

@@ -54,7 +54,7 @@ export default function FavoritesPage() {
               </Link>
               <div className="flex items-center space-x-2">
                 <Heart className="w-6 h-6 text-pink-600" />
-                <h1 className="text-2xl font-bold text-gray-900">My Favorites</h1>
+                <h1 className="text-2xl font-bold text-gray-900">Favorites</h1>
                 <Badge variant="secondary">{favoriteCount}</Badge>
               </div>
             </div>

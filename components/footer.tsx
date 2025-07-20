@@ -30,11 +30,7 @@ export default function Footer() {
                   Home
                 </Link>
               </li>
-              <li>
-                <Link href="/en/favorites" className="text-gray-300 hover:text-pink-400 transition-colors">
-                  My Favorites
-                </Link>
-              </li>
+
               <li>
                 <Link href="/en/contact" className="text-gray-300 hover:text-pink-400 transition-colors">
                   Contact Us
