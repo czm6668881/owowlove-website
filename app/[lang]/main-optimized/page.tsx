@@ -240,14 +240,7 @@ export default function OptimizedMainPage() {
               </Alert>
             )}
 
-            {!loading && !error && products.length > 0 && (
-              <Alert className="max-w-md mx-auto">
-                <CheckCircle className="h-4 w-4" />
-                <AlertDescription>
-                  已加载 {products.length} 个产品
-                </AlertDescription>
-              </Alert>
-            )}
+
           </div>
 
           {/* 产品网格 */}
