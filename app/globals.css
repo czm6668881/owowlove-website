@@ -113,3 +113,8 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Customer Reviews Carousel Animation */
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
