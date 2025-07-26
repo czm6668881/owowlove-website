@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter, useParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -54,6 +55,9 @@ export default function MainPage() {
   
   const { cart, addToCart, openCart } = useCart()
   const { addToFavorites, removeFromFavorites, isFavorite, favorites } = useFavorites()
+  const router = useRouter()
+  const params = useParams()
+  const lang = params?.lang as string || 'en'
 
   // 客户端挂载检查
   useEffect(() => {
@@ -279,8 +283,11 @@ export default function MainPage() {
           {filteredProducts.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-                <Card key={product.id} className="group hover:shadow-lg transition-shadow">
-                  <div className="aspect-square overflow-hidden rounded-t-lg relative">
+                <Card key={product.id} className="group hover:shadow-lg transition-shadow cursor-pointer">
+                  <div
+                    className="aspect-square overflow-hidden rounded-t-lg relative"
+                    onClick={() => router.push(`/${lang}/product/${product.id}`)}
+                  >
                     <img
                       src={product.image}
                       alt={product.name}
@@ -308,7 +315,10 @@ export default function MainPage() {
                       <Badge variant="outline" className="text-xs">
                         {product.category}
                       </Badge>
-                      <h3 className="font-medium text-sm line-clamp-2">
+                      <h3
+                        className="font-medium text-sm line-clamp-2 cursor-pointer hover:text-pink-600 transition-colors"
+                        onClick={() => router.push(`/${lang}/product/${product.id}`)}
+                      >
                         {product.name}
                       </h3>
                       {product.description && (

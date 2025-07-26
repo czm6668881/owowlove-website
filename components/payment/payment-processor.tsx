@@ -45,13 +45,13 @@ export function PaymentProcessor({
 
   // Calculate time remaining
   useEffect(() => {
-    if (transaction.expires_at) {
+    if (transaction.expires_at && typeof window !== 'undefined') {
       const updateTimeRemaining = () => {
         const now = new Date().getTime()
         const expiry = new Date(transaction.expires_at!).getTime()
         const remaining = Math.max(0, expiry - now)
         setTimeRemaining(remaining)
-        
+
         if (remaining === 0) {
           clearInterval(statusCheckInterval!)
         }
@@ -59,7 +59,7 @@ export function PaymentProcessor({
 
       updateTimeRemaining()
       const timer = setInterval(updateTimeRemaining, 1000)
-      
+
       return () => clearInterval(timer)
     }
   }, [transaction.expires_at, statusCheckInterval])

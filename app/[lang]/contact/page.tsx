@@ -202,7 +202,7 @@ export default function ContactPage() {
             </Card>
           </div>
 
-          {/* Contact Information & FAQ */}
+          {/* Contact Information */}
           <div className="space-y-6">
             {/* Contact Info */}
             <Card>

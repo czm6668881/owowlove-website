@@ -21,11 +21,11 @@ export default function AdminPage() {
       <div className="space-y-2">
         <h2 className="text-xl font-semibold mb-3">Quick Links:</h2>
         <div className="space-y-2">
-          <a href="/en/admin/products" className="block text-blue-600 hover:underline">📦 Product Management</a>
-          <a href="/en/admin/products/new" className="block text-blue-600 hover:underline">➕ Add Product</a>
-          <a href="/en/admin/categories" className="block text-blue-600 hover:underline">🏷️ Categories</a>
-          <a href="/en/admin/settings" className="block text-blue-600 hover:underline">⚙️ Settings</a>
-          <a href="/en/admin/debug" className="block text-blue-600 hover:underline">🔧 Debug Page</a>
+          <a href="products" className="block text-blue-600 hover:underline">📦 Product Management</a>
+          <a href="products/new" className="block text-blue-600 hover:underline">➕ Add Product</a>
+          <a href="categories" className="block text-blue-600 hover:underline">🏷️ Categories</a>
+          <a href="settings" className="block text-blue-600 hover:underline">⚙️ Settings</a>
+          <a href="debug" className="block text-blue-600 hover:underline">🔧 Debug Page</a>
         </div>
       </div>
     </div>

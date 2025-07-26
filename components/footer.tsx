@@ -53,11 +53,6 @@ export default function Footer() {
                   Returns & Refunds
                 </Link>
               </li>
-              <li>
-                <Link href="/en/contact" className="text-gray-300 hover:text-pink-400 transition-colors">
-                  FAQ
-                </Link>
-              </li>
             </ul>
           </div>
 

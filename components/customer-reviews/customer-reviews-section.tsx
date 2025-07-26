@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Star, Heart, ThumbsUp, Verified, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Star, Heart, ThumbsUp, Verified, ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { CustomerReview } from '@/lib/types/customer-reviews'
+import { Dialog, DialogContent, DialogClose, DialogTitle } from '@/components/ui/dialog'
 import Image from 'next/image'
 
 interface CustomerReviewsSectionProps {
@@ -17,6 +18,9 @@ export function CustomerReviewsSection({ className = '' }: CustomerReviewsSectio
   const [loading, setLoading] = useState(true)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [mounted, setMounted] = useState(false)
+  const [selectedReview, setSelectedReview] = useState<CustomerReview | null>(null)
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -53,6 +57,18 @@ export function CustomerReviewsSection({ className = '' }: CustomerReviewsSectio
       month: 'short',
       day: 'numeric'
     })
+  }
+
+  const handleImageClick = (review: CustomerReview, imageIndex: number = 0) => {
+    setSelectedReview(review)
+    setSelectedImageIndex(imageIndex)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedReview(null)
+    setSelectedImageIndex(0)
   }
 
   if (loading || !mounted) {
@@ -103,12 +119,16 @@ export function CustomerReviewsSection({ className = '' }: CustomerReviewsSectio
             <Card className="overflow-hidden">
               <CardContent className="p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Review Images */}
+                  {/* Review Images - 更小的图片比例 */}
                   <div className="space-y-4">
                     {currentReview.images.length > 0 && (
                       <div className="grid grid-cols-2 gap-2">
                         {currentReview.images.slice(0, 4).map((image, index) => (
-                          <div key={index} className="aspect-square overflow-hidden rounded-lg">
+                          <div
+                            key={index}
+                            className="aspect-[4/3] overflow-hidden rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick={() => handleImageClick(currentReview, index)}
+                          >
                             <img
                               src={image}
                               alt={`Customer photo ${index + 1}`}
@@ -246,16 +266,20 @@ export function CustomerReviewsSection({ className = '' }: CustomerReviewsSectio
                     )}
                   </div>
 
-                  {/* Review Text */}
-                  <p className="text-gray-700 text-sm line-clamp-3">
+                  {/* Review Text - 显示更多文字 */}
+                  <p className="text-gray-700 text-sm line-clamp-4 leading-relaxed">
                     {review.reviewText}
                   </p>
 
-                  {/* Review Images */}
+                  {/* Review Images - 更小的图片 */}
                   {review.images.length > 0 && (
                     <div className="flex space-x-2">
                       {review.images.slice(0, 3).map((image, index) => (
-                        <div key={index} className="w-16 h-16 overflow-hidden rounded">
+                        <div
+                          key={index}
+                          className="w-12 h-12 overflow-hidden rounded cursor-pointer hover:opacity-80 transition-opacity"
+                          onClick={() => handleImageClick(review, index)}
+                        >
                           <img
                             src={image}
                             alt={`Review photo ${index + 1}`}
@@ -267,7 +291,7 @@ export function CustomerReviewsSection({ className = '' }: CustomerReviewsSectio
                         </div>
                       ))}
                       {review.images.length > 3 && (
-                        <div className="w-16 h-16 bg-gray-100 rounded flex items-center justify-center text-xs text-gray-500">
+                        <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-xs text-gray-500">
                           +{review.images.length - 3}
                         </div>
                       )}
@@ -294,6 +318,113 @@ export function CustomerReviewsSection({ className = '' }: CustomerReviewsSectio
           </div>
         )}
       </div>
+
+      {/* 图片放大模态框 */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-5xl max-h-[90vh] p-0 overflow-hidden">
+          <DialogTitle className="sr-only">客户评论详情</DialogTitle>
+          <DialogClose className="absolute right-4 top-4 z-10 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary bg-white/80 backdrop-blur-sm">
+            <X className="h-6 w-6" />
+            <span className="sr-only">关闭</span>
+          </DialogClose>
+
+          {selectedReview && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+              {/* 左侧：放大的图片 */}
+              <div className="relative bg-black flex items-center justify-center min-h-[400px]">
+                {selectedReview.images.length > 0 ? (
+                  <img
+                    src={selectedReview.images[selectedImageIndex]}
+                    alt="买家秀放大图"
+                    className="max-w-full max-h-full object-contain"
+                    onError={(e) => {
+                      e.currentTarget.src = '/placeholder.jpg'
+                    }}
+                  />
+                ) : (
+                  <div className="text-white">暂无图片</div>
+                )}
+
+                {/* 图片导航 */}
+                {selectedReview.images.length > 1 && (
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    {selectedReview.images.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedImageIndex(index)}
+                        className={`w-3 h-3 rounded-full ${
+                          index === selectedImageIndex ? 'bg-white' : 'bg-white/50'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* 右侧：完整的评论内容 */}
+              <div className="p-6 bg-white overflow-y-auto">
+                <div className="space-y-4">
+                  {/* 星级评分 */}
+                  <div className="flex items-center space-x-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        className={`w-5 h-5 ${
+                          star <= selectedReview.rating
+                            ? 'fill-yellow-400 text-yellow-400'
+                            : 'text-gray-300'
+                        }`}
+                      />
+                    ))}
+                    <span className="ml-2 text-sm text-gray-600">
+                      {selectedReview.rating}/5 stars
+                    </span>
+                  </div>
+
+                  {/* 客户姓名和验证标识 */}
+                  <div className="flex items-center space-x-2">
+                    <span className="font-semibold text-lg text-gray-900">
+                      {selectedReview.customerName}
+                    </span>
+                    {selectedReview.verified && (
+                      <Badge variant="secondary" className="text-xs">
+                        <Verified className="w-3 h-3 mr-1" />
+                        Verified Purchase
+                      </Badge>
+                    )}
+                  </div>
+
+                  {/* 产品信息 */}
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p><strong>产品：</strong>{selectedReview.productName}</p>
+                    {selectedReview.size && <p><strong>尺寸：</strong>{selectedReview.size}</p>}
+                    {selectedReview.color && <p><strong>颜色：</strong>{selectedReview.color}</p>}
+                  </div>
+
+                  {/* 完整评论文字 */}
+                  <div className="text-gray-700 leading-relaxed">
+                    <h4 className="font-medium mb-2">评论内容：</h4>
+                    <p>{selectedReview.reviewText}</p>
+                  </div>
+
+                  {/* 有用性和评论日期 */}
+                  <div className="pt-4 border-t space-y-2">
+                    <div className="flex items-center space-x-4">
+                      <Button variant="ghost" size="sm" className="text-gray-500">
+                        <ThumbsUp className="w-4 h-4 mr-1" />
+                        有用 ({selectedReview.helpful})
+                      </Button>
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      评论时间：{formatDate(selectedReview.reviewDate)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }

@@ -39,6 +39,9 @@ export default function Header({ onOpenFavorites }: HeaderProps) {
               <Link href="/en" className="text-gray-700 hover:text-pink-600 transition-colors">
                 Cosplay
               </Link>
+              <Link href="/en/blog" className="text-gray-700 hover:text-pink-600 transition-colors">
+                Blog
+              </Link>
               <Link href="/en/track-order" className="text-gray-700 hover:text-pink-600 transition-colors">
                 Track Order
               </Link>

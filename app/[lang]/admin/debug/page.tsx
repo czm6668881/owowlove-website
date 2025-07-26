@@ -35,23 +35,23 @@ export default function DebugPage() {
         </CardHeader>
         <CardContent className="space-y-2">
           <div>
-            <a href="/en/admin" className="text-blue-600 hover:underline">
-              /en/admin (管理首页)
+            <a href="." className="text-blue-600 hover:underline">
+              管理首页
             </a>
           </div>
           <div>
-            <a href="/en/admin/products" className="text-blue-600 hover:underline">
-              /en/admin/products (产品列表)
+            <a href="products" className="text-blue-600 hover:underline">
+              产品列表
             </a>
           </div>
           <div>
-            <a href="/en/admin/test" className="text-blue-600 hover:underline">
-              /en/admin/test (测试页面)
+            <a href="test" className="text-blue-600 hover:underline">
+              测试页面
             </a>
           </div>
           <div>
-            <a href="/en/admin/debug" className="text-blue-600 hover:underline">
-              /en/admin/debug (当前页面)
+            <a href="debug" className="text-blue-600 hover:underline">
+              当前页面
             </a>
           </div>
         </CardContent>

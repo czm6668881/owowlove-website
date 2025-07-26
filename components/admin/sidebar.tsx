@@ -16,7 +16,11 @@ import {
   MessageSquare,
   LogOut,
   CreditCard,
-  Wallet
+  Wallet,
+  Star,
+  BookOpen,
+  FileText,
+  Tag
 } from 'lucide-react'
 
 const menuItems = [
@@ -54,6 +58,36 @@ const menuItems = [
     title: 'Messages',
     icon: MessageSquare,
     href: '/admin/messages'
+  },
+  {
+    title: 'Customer Reviews',
+    icon: Star,
+    href: '/admin/customer-reviews'
+  },
+  {
+    title: 'Blog Dashboard',
+    icon: BookOpen,
+    href: '/admin/blog'
+  },
+  {
+    title: 'Blog Posts',
+    icon: FileText,
+    href: '/admin/blog/posts'
+  },
+  {
+    title: 'Blog Categories',
+    icon: FileText,
+    href: '/admin/blog/categories'
+  },
+  {
+    title: 'Blog Tags',
+    icon: Tag,
+    href: '/admin/blog/tags'
+  },
+  {
+    title: 'Blog Comments',
+    icon: MessageSquare,
+    href: '/admin/blog/comments'
   },
   {
     title: 'Media',

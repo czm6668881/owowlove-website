@@ -1,18 +1,51 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { CustomerReview, CustomerReviewsResponse } from '@/lib/types/customer-reviews'
 import customerReviewsData from '@/data/customer-reviews.json'
+import fs from 'fs'
+import path from 'path'
+
+const REVIEWS_FILE_PATH = path.join(process.cwd(), 'data', 'customer-reviews.json')
+
+// Helper function to read reviews from file
+function readReviewsFromFile(): CustomerReview[] {
+  try {
+    if (!fs.existsSync(REVIEWS_FILE_PATH)) {
+      return customerReviewsData as CustomerReview[]
+    }
+    const fileContent = fs.readFileSync(REVIEWS_FILE_PATH, 'utf-8')
+    return JSON.parse(fileContent) as CustomerReview[]
+  } catch (error) {
+    console.error('Error reading reviews file:', error)
+    return customerReviewsData as CustomerReview[]
+  }
+}
+
+// Helper function to write reviews to file
+function writeReviewsToFile(reviews: CustomerReview[]): boolean {
+  try {
+    const dir = path.dirname(REVIEWS_FILE_PATH)
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true })
+    }
+    fs.writeFileSync(REVIEWS_FILE_PATH, JSON.stringify(reviews, null, 2))
+    return true
+  } catch (error) {
+    console.error('Error writing reviews file:', error)
+    return false
+  }
+}
 
 export async function GET(request: NextRequest) {
   try {
     console.log('🔍 Customer Reviews API called at:', new Date().toISOString())
-    
+
     const { searchParams } = new URL(request.url)
     const productId = searchParams.get('productId')
     const limit = searchParams.get('limit')
     const verified = searchParams.get('verified')
     const withPhotos = searchParams.get('withPhotos')
 
-    let reviews: CustomerReview[] = customerReviewsData as CustomerReview[]
+    let reviews: CustomerReview[] = readReviewsFromFile()
 
     // Filter by product ID if specified
     if (productId) {
@@ -115,9 +148,24 @@ export async function POST(request: NextRequest) {
       style: body.style
     }
 
-    // In a real application, you would save this to a database
-    // For now, we'll just return success
-    console.log('✅ New review created:', newReview.id)
+    // Read existing reviews and add the new one
+    const existingReviews = readReviewsFromFile()
+    existingReviews.unshift(newReview) // Add to beginning of array
+
+    // Write updated reviews back to file
+    const writeSuccess = writeReviewsToFile(existingReviews)
+
+    if (!writeSuccess) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Failed to save review'
+        },
+        { status: 500 }
+      )
+    }
+
+    console.log('✅ New review created and saved:', newReview.id)
 
     return NextResponse.json({
       success: true,
@@ -125,7 +173,7 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('❌ Error adding customer review:', error)
-    
+
     return NextResponse.json(
       {
         success: false,
