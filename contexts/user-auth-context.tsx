@@ -148,6 +148,16 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
     }
   }
 
+  // Google登录
+  const loginWithGoogle = async (): Promise<void> => {
+    try {
+      // 重定向到Google OAuth路由
+      window.location.href = '/api/auth/google'
+    } catch (error) {
+      console.error('Google login failed:', error)
+    }
+  }
+
   // 登出
   const logout = () => {
     // 确保只在客户端执行
@@ -238,6 +248,8 @@ export function UserAuthProvider({ children }: UserAuthProviderProps) {
     logout,
     updateUser,
     changePassword,
+    loginWithGoogle,
+    checkAuth,
   }
 
   return (

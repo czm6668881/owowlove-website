@@ -8,7 +8,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ['localhost', 'owowlove.vercel.app', 'owowlove.com', 'www.owowlove.com'],
+    domains: ['localhost', 'owowlove.vercel.app', 'owowlove.com', 'www.owowlove.com', 'lh3.googleusercontent.com'],
     remotePatterns: [
       {
         protocol: 'http',
@@ -51,6 +51,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.owowlove.com',
         pathname: '/uploads/**',
+      },
+      // Google用户头像支持
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
       },
     ],
   },

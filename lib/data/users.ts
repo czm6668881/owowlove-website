@@ -88,18 +88,39 @@ export class UserService {
     return users.find(user => user.email.toLowerCase() === email.toLowerCase()) || null
   }
 
+  // 根据Google ID获取用户
+  static async getUserByGoogleId(googleId: string): Promise<User | null> {
+    const users = await getUsers()
+    return users.find(user => user.googleId === googleId) || null
+  }
+
+  // 查找用户（通过邮箱或Google ID）
+  static async findUserByEmail(email: string): Promise<User | null> {
+    return await this.getUserByEmail(email)
+  }
+
+  // 注册新用户（返回格式与API兼容）
+  static async registerUser(userData: RegisterRequest): Promise<{ user: User | null, error: string | null }> {
+    try {
+      const user = await this.createUser(userData)
+      return { user, error: null }
+    } catch (error) {
+      return { user: null, error: error instanceof Error ? error.message : 'Registration failed' }
+    }
+  }
+
   // 创建新用户
   static async createUser(userData: RegisterRequest): Promise<User> {
     const users = await getUsers()
-    
+
     // 检查邮箱是否已存在
     const existingUser = await this.getUserByEmail(userData.email)
     if (existingUser) {
       throw new Error('Email already exists')
     }
 
-    // 加密密码
-    const hashedPassword = await bcrypt.hash(userData.password, 12)
+    // 加密密码（OAuth用户可能没有密码）
+    const hashedPassword = userData.password ? await bcrypt.hash(userData.password, 12) : ''
 
     const newUser: User = {
       id: Date.now().toString(),
@@ -108,9 +129,11 @@ export class UserService {
       firstName: userData.firstName,
       lastName: userData.lastName,
       phone: userData.phone,
+      googleId: userData.googleId,
+      picture: userData.picture,
       addresses: [],
       isActive: true,
-      isEmailVerified: false,
+      isEmailVerified: userData.isEmailVerified || false,
       preferences: {
         language: 'en',
         currency: 'USD',
@@ -126,7 +149,7 @@ export class UserService {
 
     users.push(newUser)
     await saveUsers(users)
-    
+
     return newUser
   }
 
@@ -157,16 +180,16 @@ export class UserService {
   }
 
   // 更新用户信息
-  static async updateUser(id: string, updateData: UpdateUserRequest): Promise<User | null> {
+  static async updateUser(id: string, updateData: UpdateUserRequest | any): Promise<User | null> {
     const users = await getUsers()
     const userIndex = users.findIndex(user => user.id === id)
-    
+
     if (userIndex === -1) {
       return null
     }
 
     const user = users[userIndex]
-    
+
     // 更新用户信息
     if (updateData.firstName !== undefined) user.firstName = updateData.firstName
     if (updateData.lastName !== undefined) user.lastName = updateData.lastName
@@ -176,12 +199,17 @@ export class UserService {
     if (updateData.preferences) {
       user.preferences = { ...user.preferences, ...updateData.preferences }
     }
-    
+
+    // Google OAuth相关字段
+    if (updateData.googleId !== undefined) user.googleId = updateData.googleId
+    if (updateData.picture !== undefined) user.picture = updateData.picture
+    if (updateData.isEmailVerified !== undefined) user.isEmailVerified = updateData.isEmailVerified
+
     user.updatedAt = new Date().toISOString()
-    
+
     users[userIndex] = user
     await saveUsers(users)
-    
+
     return user
   }
 
@@ -258,7 +286,9 @@ export class UserService {
       totalOrders: user.totalOrders,
       totalSpent: user.totalSpent,
       createdAt: user.createdAt,
-      lastLoginAt: user.lastLoginAt
+      lastLoginAt: user.lastLoginAt,
+      googleId: user.googleId,
+      picture: user.picture
     }
   }
 }

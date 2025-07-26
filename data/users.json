@@ -8,5 +8,51 @@
     "phone": "+1234567890",
     "address": "123 Test Street, Test City",
     "role": "user"
+  },
+  {
+    "id": "1753529192350",
+    "email": "test@gmail.com",
+    "password": "",
+    "firstName": "Test",
+    "lastName": "User",
+    "googleId": "google_dev_user_1",
+    "picture": "https://via.placeholder.com/150/4285F4/FFFFFF?text=TU",
+    "addresses": [],
+    "isActive": true,
+    "isEmailVerified": true,
+    "preferences": {
+      "language": "en",
+      "currency": "USD",
+      "emailNotifications": true,
+      "smsNotifications": false,
+      "marketingEmails": true
+    },
+    "totalOrders": 0,
+    "totalSpent": 0,
+    "createdAt": "2025-07-26T11:26:32.350Z",
+    "updatedAt": "2025-07-26T11:26:32.350Z"
+  },
+  {
+    "id": "1753532147496",
+    "email": "czm66888@gmail.com",
+    "password": "",
+    "firstName": "祖铭",
+    "lastName": "陈",
+    "googleId": "110046143578700714820",
+    "picture": "https://lh3.googleusercontent.com/a/ACg8ocKBIZN49gCivzrUXs2pCJc7-kQT0RXn685we1e35PHfiVplTw=s96-c",
+    "addresses": [],
+    "isActive": true,
+    "isEmailVerified": true,
+    "preferences": {
+      "language": "en",
+      "currency": "USD",
+      "emailNotifications": true,
+      "smsNotifications": false,
+      "marketingEmails": true
+    },
+    "totalOrders": 0,
+    "totalSpent": 0,
+    "createdAt": "2025-07-26T12:15:47.496Z",
+    "updatedAt": "2025-07-26T12:15:47.496Z"
   }
 ]

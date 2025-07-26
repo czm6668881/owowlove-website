@@ -23,7 +23,11 @@
     "stripe:install": "npm install stripe @stripe/stripe-js",
     "stripe:setup": "node scripts/setup-stripe.js",
     "stripe:check": "node scripts/check-stripe-config.js",
-    "stripe:test": "echo \"Visit http://localhost:3000/stripe-test to test Stripe integration\""
+    "stripe:test": "echo \"Visit http://localhost:3000/stripe-test to test Stripe integration\"",
+    "google:verify": "node scripts/verify-google-oauth.js",
+    "google:test": "echo \"Visit http://localhost:3001/en/test-google-oauth to test Google OAuth\"",
+    "google:deploy": "node scripts/deploy-google-oauth.js",
+    "google:production-test": "echo \"Visit https://owowlove.com/en/login to test Google OAuth in production\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -66,6 +70,8 @@
     "date-fns": "^3.6.0",
     "dotenv": "^17.2.0",
     "embla-carousel-react": "8.5.1",
+    "google-auth-library": "^10.2.0",
+    "googleapis": "^154.0.0",
     "input-otp": "1.4.1",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.454.0",

@@ -7,22 +7,26 @@ export interface User {
   phone?: string
   dateOfBirth?: string
   gender?: 'male' | 'female' | 'other'
-  
+
+  // OAuth相关字段
+  googleId?: string
+  picture?: string
+
   // 地址信息
   addresses: UserAddress[]
   defaultAddressId?: string
-  
+
   // 账户状态
   isActive: boolean
   isEmailVerified: boolean
-  
+
   // 偏好设置
   preferences: UserPreferences
-  
+
   // 统计信息
   totalOrders: number
   totalSpent: number
-  
+
   // 时间戳
   createdAt: string
   updatedAt: string
@@ -61,6 +65,10 @@ export interface RegisterRequest {
   lastName: string
   phone?: string
   acceptTerms: boolean
+  // OAuth相关字段
+  googleId?: string
+  picture?: string
+  isEmailVerified?: boolean
 }
 
 // 用户登录请求
@@ -92,6 +100,9 @@ export interface PublicUser {
   totalSpent: number
   createdAt: string
   lastLoginAt?: string
+  // OAuth相关字段
+  googleId?: string
+  picture?: string
 }
 
 // 用户更新请求
@@ -125,6 +136,8 @@ export interface UserContextType {
   logout: () => void
   updateUser: (data: UpdateUserRequest) => Promise<boolean>
   changePassword: (data: ChangePasswordRequest) => Promise<boolean>
+  loginWithGoogle: () => Promise<void>
+  checkAuth: () => Promise<void>
 }
 
 // 用户统计信息
